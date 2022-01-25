@@ -12,7 +12,7 @@ little costs.
 ## Key outcomes
 
 - Increase Ethereum technology usage for payments settlement
-- Increase popularity of L2s e.g. Arbitrum, Optimism, Polygon
+- Increase popularity of L2s e.g. Arbitrum, Optimism, zkSync
 - Issue at least 12000 payment requests in 2022
 - Handle at least 10000 terminal payments in 2022
 - Incorporation into BanklessDAO community in 2022
@@ -33,7 +33,7 @@ The lack of simple and cheap tools hinders Ethereum adoption as a payment settle
 1. As a user I want to make a request of payment that I can send to people.
 2. As a user I want to select the network on which payment is to be made.
 3. As a user I want to provide payment amount in my local currency.
-4. As a user I want to select payment token of my choosing.
+4. As a user I want to select payment token of my choice.
 5. As a user I want to connect my crypto wallet and make a payment.
 6. As a user I want to scan QR code in my wallet and make a payment.
 
