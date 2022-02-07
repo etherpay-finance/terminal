@@ -1,5 +1,7 @@
-This project was bootstrapped with
-[Create React App](https://github.com/facebook/create-react-app).
+# EtherPay
+
+An opensource interface for EtherPay protocol - a protocol for business payments.
+
 
 ## Available Scripts
 
