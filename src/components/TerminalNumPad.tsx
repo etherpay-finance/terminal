@@ -1,69 +1,35 @@
-import {Box, Grid, SimpleGrid, Text} from "@chakra-ui/react";
+import {Box, Button, Grid, SimpleGrid, Text} from "@chakra-ui/react";
+import {useState} from "react";
 
-export const TerminalNumPad = () => {
+export const TerminalNumPad = (props: { onKeyPressed: (key: string) => void; }) => {
+    const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', ''];
+    const onKeyPressed = props.onKeyPressed;
+
     return <Box>
         <Grid>
             <SimpleGrid columns={3} spacing={3}>
-                <Box bg='teal.500' borderRadius={'5%'}>
+                {keys.map(key => (
+                    <Button colorScheme={'teal'} size={'xl'} onClick={() => onKeyPressed(key)}>
+                        <Box m={3}>
+                            <Text fontWeight={'semibold'}>{key}</Text>
+                        </Box>
+                    </Button>
+                ))}
+                <Button colorScheme={'yellow'} size={'xl'} onClick={() => onKeyPressed('clearEntry')}>
                     <Box m={3}>
-                        <Text fontWeight={'semibold'}>1</Text>
+                        <Text fontWeight={'semibold'}>CE</Text>
                     </Box>
-                </Box>
-                <Box bg='teal.500' borderRadius={'5%'}>
+                </Button>
+                <Button colorScheme={'red'} size={'xl'} onClick={() => onKeyPressed('clearAll')}>
                     <Box m={3}>
-                        <Text fontWeight={'semibold'}>2</Text>
+                        <Text fontWeight={'semibold'}>CA</Text>
                     </Box>
-                </Box>
-                <Box bg='teal.500' borderRadius={'5%'}>
-                    <Box m={3}>
-                        <Text fontWeight={'semibold'}>3</Text>
-                    </Box>
-                </Box>
-                <Box bg='teal.500' borderRadius={'5%'}>
-                    <Box m={3}>
-                        <Text fontWeight={'semibold'}>4</Text>
-                    </Box>
-                </Box>
-                <Box bg='teal.500' borderRadius={'5%'}>
-                    <Box m={3}>
-                        <Text fontWeight={'semibold'}>5</Text>
-                    </Box>
-                </Box>
-                <Box bg='teal.500' borderRadius={'5%'}>
-                    <Box m={3}>
-                        <Text fontWeight={'semibold'}>6</Text>
-                    </Box>
-                </Box>
-                <Box bg='teal.500' borderRadius={'5%'}>
-                    <Box m={3}>
-                        <Text fontWeight={'semibold'}>7</Text>
-                    </Box>
-                </Box>
-                <Box bg='teal.500' borderRadius={'5%'}>
-                    <Box m={3}>
-                        <Text fontWeight={'semibold'}>8</Text>
-                    </Box>
-                </Box>
-                <Box bg='teal.500' borderRadius={'5%'}>
-                    <Box m={3}>
-                        <Text fontWeight={'semibold'}>9</Text>
-                    </Box>
-                </Box>
-                <Box bg='teal.500' borderRadius={'5%'}>
-                    <Box m={3}>
-                        <Text fontWeight={'semibold'}>.</Text>
-                    </Box>
-                </Box>
-                <Box bg='yellow.500' borderRadius={'5%'}>
-                    <Box m={3}>
-                        <Text fontWeight={'semibold'}>Clear</Text>
-                    </Box>
-                </Box>
-                <Box bg='green.500' borderRadius={'5%'}>
+                </Button>
+                <Button colorScheme={'green'} size={'xl'} onClick={() => onKeyPressed('confirm')}>
                     <Box m={3}>
                         <Text fontWeight={'semibold'}>Confirm</Text>
                     </Box>
-                </Box>
+                </Button>
             </SimpleGrid>
         </Grid>
     </Box>
