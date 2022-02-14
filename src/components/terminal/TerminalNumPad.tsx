@@ -1,9 +1,49 @@
 import {Box, Button, Grid, SimpleGrid, Text} from "@chakra-ui/react";
-import {useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
-export const TerminalNumPad = (props: { onKeyPressed: (key: string) => void; }) => {
+export const TerminalNumPad = (props: { onAmountUpdated: (amount: string) => void; onConfirm: () => void; }) => {
     const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', ''];
-    const onKeyPressed = props.onKeyPressed;
+    const [amount, setAmount] = useState('0');
+    const onAmountUpdated = props.onAmountUpdated;
+
+    const onKeyPressed = useCallback((key: string): void => {
+        if (key === '') {
+            return
+        }
+
+        let newAmount;
+        if (key === 'confirm') {
+            return;
+        } else if (key === 'clearEntry') {
+            if (amount.length === 1) {
+                newAmount = '0'
+            } else {
+                newAmount = amount.substring(0, amount.length - 1)
+            }
+            setAmount(newAmount);
+            return;
+        } else if (key === 'clearAll') {
+            newAmount = '0'
+            setAmount(newAmount);
+            return;
+        } else if (key === '.') {
+            if (amount.indexOf('.') === -1) {
+                setAmount(amount + key);
+            }
+            return;
+        }
+
+        if (amount === '0') {
+            newAmount = key;
+        } else {
+            newAmount = amount + key;
+        }
+        setAmount(newAmount);
+    }, [amount]);
+
+    useEffect(() => {
+        onAmountUpdated(amount);
+    }, [amount]);
 
     return <Box>
         <Grid>
