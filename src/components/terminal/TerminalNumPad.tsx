@@ -5,6 +5,7 @@ export const TerminalNumPad = (props: { onAmountUpdated: (amount: string) => voi
     const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', ''];
     const [amount, setAmount] = useState('0');
     const onAmountUpdated = props.onAmountUpdated;
+    const onConfirm = props.onConfirm;
 
     const onKeyPressed = useCallback((key: string): void => {
         if (key === '') {
@@ -65,7 +66,7 @@ export const TerminalNumPad = (props: { onAmountUpdated: (amount: string) => voi
                         <Text fontWeight={'semibold'}>CA</Text>
                     </Box>
                 </Button>
-                <Button colorScheme={'green'} size={'xl'} onClick={() => onKeyPressed('confirm')}>
+                <Button colorScheme={'green'} size={'xl'} onClick={() => onConfirm()}>
                     <Box m={3}>
                         <Text fontWeight={'semibold'}>Confirm</Text>
                     </Box>
