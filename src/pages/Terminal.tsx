@@ -21,7 +21,7 @@ export const Terminal = () => {
     }, [amount])
 
     const onConfirm = useCallback((): void => {
-        navigate("payment");
+        navigate("payment?amount=" + amount + "&secondAmount=" + secondAmount);
     }, [amount, secondAmount])
 
     return <TerminalLayout>
