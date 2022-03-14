@@ -6,7 +6,7 @@ import {
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { Web3Context } from "./utils/Web3Provider";
+import { Web3Context } from "./utils/Web3Context";
 import { Terminal } from "./pages/Terminal";
 import { TerminalPayment } from "./pages/TerminalPayment";
 
