@@ -54,6 +54,7 @@ export const Web3Context = (props: {
     const [isWalletSelected, setWalletSelected] = useState(false);
 
     const [web3Context, setWeb3Context] = useState(new Web3ContextClass() as Web3ContextInterface);
+    const [storedWeb3Provider, setStoredWeb3Provider] = useLocalStorage("provider", undefined as unknown as string);
 
     web3Context.setListener(() => {
         console.log("OnChange:", web3Context);
@@ -63,11 +64,26 @@ export const Web3Context = (props: {
         newWeb3Context.listener = web3Context.listener;
 
         setWeb3Context(newWeb3Context);
-    })
+    });
 
-    const onNetworkChangeCallback = useCallback((newNetwork, oldNetwork) => {
-        console.log("Network:", newNetwork);
-    }, [])
+    const onAccountsChanged = useCallback((accounts: string[]) => {
+        console.log("AccountsChanged:", accounts);
+
+        if (accounts.length === 0) {
+            console.log("Clear");
+            setWalletSelected(false);
+            setWeb3Context(new Web3ContextClass() as Web3ContextInterface);
+            setStoredWeb3Provider(undefined);
+        }
+    }, []);
+
+    const onChainChangedCallback = useCallback((chainId: number) => {
+        console.log("ChainChanged:", chainId);
+    }, []);
+
+    const onDisconnect = useCallback((code: number, reason: string) => {
+        console.log("Disconnect:", code, reason);
+    }, []);
 
     useEffect(() => {
         console.log("OnWalletSelected: ", web3Context.wallet);
@@ -86,15 +102,17 @@ export const Web3Context = (props: {
             }
 
             web3Context.signer.provider.off("network");
+            web3Context.signer.provider.off("accountsChanged");
+            web3Context.signer.provider.off("chainChanged");
+            web3Context.signer.provider.off("disconnect");
 
-            let network = await web3Context.signer.provider.getNetwork();
-            web3Context.signer.provider.on("network", onNetworkChangeCallback);
-
-            console.log("Network:", network);
+            web3Context.signer.provider.on("accountsChanged", onAccountsChanged);
+            web3Context.signer.provider.on("chainChanged", onChainChangedCallback);
+            web3Context.signer.provider.on("disconnect", onDisconnect);
         }
 
         fetchData();
-    }, [isWalletSelected, web3Context, onNetworkChangeCallback])
+    }, [isWalletSelected, web3Context, onAccountsChanged, onChainChangedCallback, onDisconnect])
 
     return <internalWeb3Context.Provider value={web3Context}>
         { !isWalletSelected ? props.walletSelection : props.children }
