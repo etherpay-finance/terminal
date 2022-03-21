@@ -9,11 +9,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Web3Context } from "./utils/Web3Context";
 import { Terminal } from "./pages/Terminal";
 import { TerminalPayment } from "./pages/TerminalPayment";
+import {TerminalWalletSelect} from "./pages/TerminalWalletSelect";
 
 export const App = () => {
   return (
       <ChakraProvider theme={theme}>
-          <Web3Context>
+          <Web3Context walletSelection={<TerminalWalletSelect/>}>
               <BrowserRouter>
                   <Routes>
                       <Route path="/" element={<Terminal/>} />

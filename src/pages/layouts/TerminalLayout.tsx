@@ -1,5 +1,4 @@
 import {Box, Grid} from "@chakra-ui/react";
-import {ColorModeSwitcher} from "../../components/buttons/ColorModeSwitcher";
 import * as React from "react";
 import {TerminalHeader} from "../../components/terminal/TerminalHeader";
 import {TerminalFooter} from "../../components/terminal/TerminalFooter";

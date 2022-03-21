@@ -13,7 +13,7 @@ export const TerminalHeader = () => {
 
     useEffect(() => {
         async function fetchData() {
-            if (web3Context === undefined) {
+            if (web3Context === undefined || web3Context.signer === undefined) {
                 return;
             }
 
