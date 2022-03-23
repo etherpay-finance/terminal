@@ -1,14 +1,19 @@
 import {TerminalSimpleLayout} from "./layouts/TerminalSimpleLayout";
-import {Box, Button, Container, Text} from "@chakra-ui/react";
+import {Box, Button, Container, Link, Text, useColorModeValue} from "@chakra-ui/react";
 import {useLocalStorage} from "../utils/useLocalStorage";
 import {useWeb3Context} from "../utils/Web3Context";
 import {useCallback, useEffect} from "react";
 import {ethers} from "ethers";
+import { RiSecurePaymentLine } from "react-icons/ri";
 
 export const TerminalWalletSelect = () => {
     const web3Context = useWeb3Context();
 
     const [storedWeb3Provider, setStoredWeb3Provider] = useLocalStorage("provider", undefined as unknown as string);
+
+    const terminalColor = useColorModeValue("gray.900", "white")
+    const iconColor = useColorModeValue("#4A5568", "#A0AEC0")
+    const textColor = useColorModeValue("gray.600", "gray.400")
 
     const onMetamaskSelect = useCallback(() => {
         async function initialize() {
@@ -28,6 +33,10 @@ export const TerminalWalletSelect = () => {
             // Subscribe to accounts change
             // @ts-ignore
             window.ethereum.on("accountsChanged", (accounts: string[]) => {
+                if (accounts.length === 0) {
+                    setStoredWeb3Provider(undefined);
+                }
+
                 provider.emit("accountsChanged", accounts);
             });
 
@@ -62,10 +71,21 @@ export const TerminalWalletSelect = () => {
 
     return <TerminalSimpleLayout>
         <Container>
+            <Box m={10}>
+                <Container align={"center"}>
+                    <RiSecurePaymentLine color={iconColor} fontSize={124}/>
+                </Container>
+            </Box>
+            <Box m={[5, 5, 5, 5]}>
+                <Text color={textColor} fontSize={'lg'} fontWeight={'bold'}>
+                    „Accepting crypto payments has never been easier. Download <Link href='https://metamask.io/'color={"orange.400"} isExternal>Metamask</Link> on your mobile device. Create your
+                    business wallet. Open the <Link href='#' color={terminalColor} isExternal>Ξ Terminal</Link> and start accepting payments at fractions of the costs.”
+                </Text>
+            </Box>
             <Box mt={10}>
                 <Text fontSize={'lg'} fontWeight={'bold'}>Please select Wallet</Text>
             </Box>
-            <Box m={5}>
+            <Box mt={5}>
                 <Button size={'lg'} onClick={onMetamaskSelect}>Metamask</Button>
             </Box>
         </Container>
