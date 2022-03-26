@@ -1,15 +1,47 @@
 import {ColorModeSwitcher} from "../buttons/ColorModeSwitcher";
 import * as React from "react";
-import {Text, Box, Flex, Spacer, IconButton, Menu, MenuButton, MenuList, MenuItem, Icon} from "@chakra-ui/react";
+import {
+    Text,
+    Box,
+    Flex,
+    Spacer,
+    IconButton,
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
+    Icon,
+    HStack
+} from "@chakra-ui/react";
 import {Logo} from "../Logo";
-import {FaCog, FaEquals, FaHistory, FaWallet, FaDoorOpen} from "react-icons/all";
+import {BiX, BiMenu, BiUser} from "react-icons/all";
 import {useWeb3Context} from "../../utils/Web3Context";
 import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
+import {shortAddress} from "../../utils/ethAddressUtils";
+
+const MenuItems = (props: { children: any; isLast?: boolean, to?: string | undefined; }) => {
+    const { children, isLast, to = "/", ...rest } = props;
+    return (
+        <Text
+            mb={{ base: isLast ? 0 : 3, sm: 0 }}
+            mr={{ base: 0, sm: isLast ? 0 : 3 }}
+            fontWeight={"bold"}
+            display="block"
+            {...rest}
+        >
+            <Link to={to}>{children}</Link>
+        </Text>
+    )
+}
 
 export const TerminalHeader = () => {
     const web3Context = useWeb3Context();
 
     const [wallet, setWallet] = useState("");
+
+    const [show, setShow] = useState(false)
+    const toggleMenu = () => setShow(!show)
 
     useEffect(() => {
         async function fetchData() {
@@ -24,56 +56,43 @@ export const TerminalHeader = () => {
         fetchData();
     }, [web3Context])
 
-    return <Flex>
+    let menuItems = [];
+    if (web3Context !== undefined) {
+        menuItems.push(<MenuItems to="#">
+            <HStack>
+                <BiUser/><Box>{shortAddress(wallet)}</Box>
+            </HStack></MenuItems>);
+        menuItems.push(<MenuItems to="/History">History</MenuItems>);
+        menuItems.push(<MenuItems to="/Settings">Settings</MenuItems>);
+        menuItems.push(<MenuItems to="/Disconnect">Disconnect</MenuItems>);
+    }
+    menuItems.push(<HStack>
+        <ColorModeSwitcher/>
+    </HStack>);
+
+    return <Flex
+                as="nav"
+                align="center"
+                justify="space-between"
+                wrap="wrap"
+                w="100%">
         <Logo text="Terminal" />
         <Spacer />
-        <Box>
-            <Menu>
-                <MenuButton
-                    as={IconButton}
-                    size="md"
-                    fontSize="lg"
-                    variant="ghost"
-                    color="current"
-                    aria-label="Settings"
-                    icon={<FaEquals />}>
-                </MenuButton>
-                <MenuList>
-                    <Flex>
-                        <Icon
-                            size="md"
-                            color="current"
-                            aria-label="Wallet Address"
-                            ml={4}
-                            mt={2}
-                            mb={2}
-                            as={FaWallet} />
-                        <Spacer />
-                        <Text fontSize={"sm"} fontWeight={"semibold"} m={2} marginRight={4}>{wallet}</Text>
-                    </Flex>
-                    <Flex>
-                        <IconButton
-                            size="md"
-                            fontSize="sm"
-                            color="current"
-                            variant="ghost"
-                            marginLeft={2}
-                            aria-label={"Transaction History"}
-                            icon={<FaHistory />}/>
-                        <ColorModeSwitcher justifySelf="flex-end" size={"md"}/>
-                        <Spacer />
-                        <IconButton
-                            size="md"
-                            fontSize="sm"
-                            colorScheme="red"
-                            variant="ghost"
-                            marginLeft={2}
-                            marginRight={2}
-                            aria-label={"Transaction History"}
-                            icon={<FaDoorOpen />}/>
-                    </Flex>
-                </MenuList>
-            </Menu>
+        <Box display={{ base: "block", md: "none" }} onClick={toggleMenu}>
+            {show ? <BiX/> : <BiMenu/>}
+        </Box>
+        <Box
+            display={{ base: show ? "block" : "none", md: "block" }}
+            flexBasis={{ base: "100%", md: "auto" }}
+        >
+            <Flex
+                align={["center", "center", "center", "center"]}
+                justify={["center", "space-between", "flex-end", "flex-end"]}
+                direction={["column", "row", "row", "row"]}
+                pt={[4, 4, 0, 0]}
+            >
+                {menuItems}
+            </Flex>
         </Box>
     </Flex>
 }
