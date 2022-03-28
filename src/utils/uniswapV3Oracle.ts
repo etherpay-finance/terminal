@@ -1,12 +1,70 @@
 import {PriceOracle, TokenPair} from "./PriceOracle";
 
 import {Contract, ethers} from "ethers";
-import { Pool } from "@uniswap/v3-sdk";
-import { Token } from "@uniswap/sdk-core";
+import {Pool} from "@uniswap/v3-sdk";
+import {Token} from "@uniswap/sdk-core";
 import IUniswapV3FactoryABI from "@uniswap/v3-core/artifacts/contracts/interfaces/IUniswapV3Factory.sol/IUniswapV3Factory.json";
 import IUniswapV3PoolABI from "@uniswap/v3-core/artifacts/contracts/interfaces/IUniswapV3Pool.sol/IUniswapV3Pool.json";
-import IERC20Minimal from "@uniswap/v3-core/artifacts/contracts/interfaces/IERC20Minimal.sol/IERC20Minimal.json";
 
+const IERC20MetadataABI = [
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "name",
+        "outputs": [
+            {
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "payable": false,
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "decimals",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint8"
+            }
+        ],
+        "payable": false,
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "_owner",
+                "type": "address"
+            }
+        ],
+        "name": "balanceOf",
+        "outputs": [
+            {
+                "name": "balance",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "symbol",
+        "outputs": [
+            {
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "payable": false,
+        "type": "function"
+    }
+]
 
 interface Immutables {
     factory: string;
@@ -52,8 +110,14 @@ export class UniswapV3Oracle implements PriceOracle {
             const immutables = await thiz.getPoolImmutables(poolInstance);
             const state = await thiz.getPoolState(poolInstance);
 
-            const TokenA = new Token(1, immutables.token1, 6);
-            const TokenB = new Token(1, immutables.token0, 18);
+            const token0Instance = new ethers.Contract(immutables.token0, IERC20MetadataABI, thiz.provider);
+            const token1Instance = new ethers.Contract(immutables.token1, IERC20MetadataABI, thiz.provider);
+
+            const token0Decimals = await token0Instance.decimals();
+            const token1Decimals = await token1Instance.decimals();
+
+            const TokenA = new Token(1, immutables.token1, token1Decimals);
+            const TokenB = new Token(1, immutables.token0, token0Decimals);
 
             const pool = new Pool(
                 TokenA,
