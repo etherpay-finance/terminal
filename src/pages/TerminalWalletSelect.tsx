@@ -78,8 +78,8 @@ export const TerminalWalletSelect = () => {
             </Box>
             <Box m={[5, 5, 5, 5]}>
                 <Text color={textColor} fontSize={'lg'} fontWeight={'bold'}>
-                    „Accepting crypto payments has never been easier. Download <Link href='https://metamask.io/'color={"orange.400"} isExternal>Metamask</Link> on your mobile device. Create your
-                    business wallet. Open the <Link href='#' color={terminalColor} isExternal>Ξ Terminal</Link> and start accepting payments at fractions of the costs.”
+                    „Accepting crypto payments has never been easier. Download <Link href='https://metamask.io/'color={"orange.400"} isExternal>Metamask</Link> on your mobile device, create your
+                     wallet, open the <Link href='#' color={terminalColor} isExternal>Ξ Terminal</Link> and start accepting payments at fractions of the cost.”
                 </Text>
             </Box>
             <Box mt={10}>
