@@ -5,12 +5,6 @@ import {
     Box,
     Flex,
     Spacer,
-    IconButton,
-    Menu,
-    MenuButton,
-    MenuList,
-    MenuItem,
-    Icon,
     HStack
 } from "@chakra-ui/react";
 import {Logo} from "../Logo";
@@ -89,7 +83,7 @@ export const TerminalHeader = () => {
                 align={["center", "center", "center", "center"]}
                 justify={["center", "space-between", "flex-end", "flex-end"]}
                 direction={["column", "row", "row", "row"]}
-                pt={[4, 4, 0, 0]}
+                pt={[5, 5, 0, 0]}
             >
                 {menuItems}
             </Flex>
