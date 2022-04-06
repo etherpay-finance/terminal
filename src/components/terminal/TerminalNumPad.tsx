@@ -1,7 +1,7 @@
 import {Box, Button, Grid, SimpleGrid, Text} from "@chakra-ui/react";
 import {useCallback, useEffect, useState} from "react";
 
-export const TerminalNumPad = (props: { onAmountUpdated: (amount: string) => void; onConfirm: () => void; }) => {
+export const TerminalNumPad = (props: { onAmountUpdated: (amount: string) => void; onConfirm: () => void; isLoading: boolean}) => {
     const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', ''];
     const [amount, setAmount] = useState('0');
     const onAmountUpdated = props.onAmountUpdated;
@@ -66,7 +66,7 @@ export const TerminalNumPad = (props: { onAmountUpdated: (amount: string) => voi
                         <Text fontWeight={'semibold'}>CA</Text>
                     </Box>
                 </Button>
-                <Button colorScheme={'green'} size={'xl'} onClick={() => onConfirm()}>
+                <Button colorScheme={'green'} size={'xl'} onClick={() => onConfirm()} disabled={props.isLoading}>
                     <Box m={3}>
                         <Text fontWeight={'semibold'}>Confirm</Text>
                     </Box>

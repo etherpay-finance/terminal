@@ -13,6 +13,7 @@ export const Terminal = () => {
     const navigate = useNavigate();
     const [amount, setAmount] = useState('0');
     const [secondAmount, setSecondAmount] = useState('0');
+    const [isLoading, setIsLoading] = useState(false);
 
     const web3Context = useWeb3Context();
 
@@ -59,8 +60,10 @@ export const Terminal = () => {
 
             console.log("exch:", exchangeRate);
             setSecondAmount((parseFloat(amount) / parseFloat(exchangeRate)).toString());
+            setIsLoading(false);
         }
 
+        setIsLoading(true);
         fetchData();
     }, [amount]);
 
@@ -75,7 +78,7 @@ export const Terminal = () => {
     return <TerminalLayout>
         <VStack spacing={8}>
             <TerminalScreen amount={amount} currency={"$"} secondAmount={secondAmount} secondCurrency={'Ξ'}/>
-            <TerminalNumPad onAmountUpdated={onAmountUpdated} onConfirm={onConfirm}/>
+            <TerminalNumPad onAmountUpdated={onAmountUpdated} onConfirm={onConfirm} isLoading={isLoading}/>
         </VStack>
     </TerminalLayout>
 }
