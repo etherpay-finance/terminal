@@ -16,6 +16,25 @@ export const Terminal = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const web3Context = useWeb3Context();
+    const [recipientAddress, setRecipientAddress] = useState("");
+    const [chainId, setChainId] = useState(1);
+
+    useEffect(() => {
+        async function fetchData() {
+            const signer = web3Context.signer;
+            if (!signer) {
+                return;
+            }
+
+            const addr = await signer.getAddress();
+            const chainId = await signer.getChainId();
+
+            setRecipientAddress(addr);
+            setChainId(chainId);
+        }
+
+        fetchData();
+    }, []);
 
     useEffect(() => {
         async function fetchData() {
@@ -72,8 +91,9 @@ export const Terminal = () => {
     }, [amount])
 
     const onConfirm = useCallback((): void => {
-        navigate("payment?amount=" + amount + "&secondAmount=" + secondAmount);
-    }, [amount, secondAmount])
+        navigate("payment?amount=" + amount + "&secondAmount=" + secondAmount + "&chainId=" + chainId.toString()
+            + "&to=" + recipientAddress);
+    }, [amount, secondAmount, recipientAddress, chainId])
 
     return <TerminalLayout>
         <VStack spacing={8}>

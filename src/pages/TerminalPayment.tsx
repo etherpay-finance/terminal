@@ -16,31 +16,9 @@ function useQuery() {
 export const TerminalPayment = (props: {}) => {
     const fgColor = useColorModeValue("#2D3748", "#E2E8F0")
     const bgColor = useColorModeValue("#FFFFFF", "#1A202C")
-    const beatLoaderColor = useColorModeValue("black", "white")
 
     const navigate = useNavigate();
     const query = useQuery();
-
-    const web3Context = useWeb3Context();
-    const [recipientAddress, setRecipientAddress] = useState("");
-    const [chainId, setChainId] = useState(1);
-
-    useEffect(() => {
-        async function fetchData() {
-            const signer = web3Context.signer;
-            if (!signer) {
-                return;
-            }
-
-            const addr = await signer.getAddress();
-            const chainId = await signer.getChainId();
-
-            setRecipientAddress(addr);
-            setChainId(chainId);
-        }
-
-        fetchData();
-    }, []);
 
     const cancel = useCallback(function () {
         navigate("/");
@@ -58,21 +36,28 @@ export const TerminalPayment = (props: {}) => {
         navigate("/");
     }
 
+    // @ts-ignore
+    let chainId: string = query.get("chainId") !== null ? query.get("chainId") : ""
+    if (!chainId) {
+        navigate("/");
+    }
+
+    // @ts-ignore
+    let to: string = query.get("to") !== null ? query.get("to") : ""
+    if (!to) {
+        navigate("/");
+    }
+
     return <TerminalLayout>
         <VStack spacing={8}>
             <TerminalScreen amount={amount} currency={"$"} secondAmount={secondAmount} secondCurrency={'Ξ'}/>
             <Box>
-                {
-                    recipientAddress.length !== 0 && chainId ?
-                        <QRCode value={
-                                    "ethereum:" + recipientAddress + "@" + chainId.toString() + "?value=" + secondAmount + "e18"
-                                }
-                                fgColor={fgColor}
-                                bgColor={bgColor}
-                        />
-                        :
-                        <BeatLoader size={8} color={beatLoaderColor} />
-                }
+                <QRCode value={
+                            "ethereum:" + to + "@" + chainId.toString() + "?value=" + secondAmount + "e18"
+                        }
+                        fgColor={fgColor}
+                        bgColor={bgColor}
+                />
             </Box>
             <Container >
                 <Button mt={5} isFullWidth size='lg' colorScheme='red' variant='solid' onClick={cancel}>
