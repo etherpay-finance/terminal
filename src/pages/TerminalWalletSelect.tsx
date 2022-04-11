@@ -71,7 +71,7 @@ export const TerminalWalletSelect = () => {
 
     return <TerminalSimpleLayout>
         <Container>
-            <Box m={10}>
+            <Box my={5}>
                 <Container align={"center"}>
                     <RiSecurePaymentLine color={iconColor} fontSize={124}/>
                 </Container>
@@ -82,7 +82,7 @@ export const TerminalWalletSelect = () => {
                      wallet, open the <Link href='#' color={terminalColor} isExternal>Ξ Terminal</Link> and start accepting payments at fractions of the cost.”
                 </Text>
             </Box>
-            <Box mt={10}>
+            <Box mt={5}>
                 <Text fontSize={'lg'} fontWeight={'bold'}>Please select Wallet</Text>
             </Box>
             <Box mt={5}>

@@ -49,7 +49,7 @@ export const TerminalPayment = (props: {}) => {
     }
 
     return <TerminalLayout>
-        <VStack spacing={8}>
+        <VStack spacing={5}>
             <TerminalScreen amount={amount} currency={"$"} secondAmount={secondAmount} secondCurrency={'Ξ'}/>
             <Box>
                 <QRCode value={
@@ -59,8 +59,8 @@ export const TerminalPayment = (props: {}) => {
                         bgColor={bgColor}
                 />
             </Box>
-            <Container >
-                <Button mt={5} isFullWidth size='lg' colorScheme='red' variant='solid' onClick={cancel}>
+            <Container>
+                <Button mt={0} isFullWidth size='lg' colorScheme='red' variant='solid' onClick={cancel}>
                     Cancel
                 </Button>
             </Container>
