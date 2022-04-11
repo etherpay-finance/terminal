@@ -13,9 +13,7 @@ export const TerminalScreen = (props: { amount: string; currency: string; second
             secondCurrency !== undefined && secondAmount !== undefined ?
                 <Text fontSize={'sm'} color={'gray.500'} fontWeight={'extrabold'}>
                     { props.isLoading ?
-                        <Box>
-                            <CircularProgress isIndeterminate color='gray.500' size={15} /> Querying price...
-                        </Box>
+                        <Box> Querying price... </Box>
                         :
                         secondAmount + " " + secondCurrency
                     }
