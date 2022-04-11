@@ -5,6 +5,8 @@ import {useWeb3Context} from "../utils/Web3Context";
 import {useCallback, useEffect} from "react";
 import {ethers} from "ethers";
 import { RiSecurePaymentLine } from "react-icons/ri";
+import { GrMoney } from "react-icons/gr";
+import { GiReceiveMoney } from "react-icons/gi";
 
 export const TerminalWalletSelect = () => {
     const web3Context = useWeb3Context();
@@ -73,7 +75,7 @@ export const TerminalWalletSelect = () => {
         <Container>
             <Box my={5}>
                 <Container align={"center"}>
-                    <RiSecurePaymentLine color={iconColor} fontSize={124}/>
+                    <GiReceiveMoney color={iconColor} fontSize={124}/>
                 </Container>
             </Box>
             <Box m={[5, 5, 5, 5]}>
