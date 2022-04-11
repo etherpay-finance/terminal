@@ -7,7 +7,7 @@ import { useLocalStorage } from './useLocalStorage';
 
 const internalWeb3Context = createContext(undefined as unknown as Web3ContextInterface);
 
-interface Web3ContextInterface {
+export interface Web3ContextInterface {
     signer?: Signer;
     wallet?: string;
     listener?: () => void;
