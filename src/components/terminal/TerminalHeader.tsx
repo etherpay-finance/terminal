@@ -10,11 +10,11 @@ import {
 import {Logo} from "../Logo";
 import {BiX, BiMenu, BiUser} from "react-icons/all";
 import {useWeb3Context} from "../../utils/Web3Context";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {shortAddress} from "../../utils/ethAddressUtils";
 
-const MenuItems = (props: { children: any; isLast?: boolean, to?: string | undefined; }) => {
+const MenuItems = (props: { children: any, onClick?: React.MouseEventHandler<HTMLParagraphElement> | undefined, isLast?: boolean, to?: string | undefined; }) => {
     const { children, isLast, to = "/", ...rest } = props;
     return (
         <Text
@@ -23,6 +23,7 @@ const MenuItems = (props: { children: any; isLast?: boolean, to?: string | undef
             fontWeight={"bold"}
             display="block"
             {...rest}
+            onClick={props.onClick}
         >
             <Link to={to}>{children}</Link>
         </Text>
@@ -36,6 +37,11 @@ export const TerminalHeader = () => {
 
     const [show, setShow] = useState(false)
     const toggleMenu = () => setShow(!show)
+
+    const handleDisconnect = useCallback(() => {
+        web3Context.setWallet(undefined);
+        web3Context.setSigner(undefined);
+    }, [web3Context]);
 
     useEffect(() => {
         async function fetchData() {
@@ -56,9 +62,9 @@ export const TerminalHeader = () => {
             <HStack>
                 <BiUser/><Box>{shortAddress(wallet)}</Box>
             </HStack></MenuItems>);
-        menuItems.push(<MenuItems to="/History">History</MenuItems>);
-        menuItems.push(<MenuItems to="/Settings">Settings</MenuItems>);
-        menuItems.push(<MenuItems to="/Disconnect">Disconnect</MenuItems>);
+        //menuItems.push(<MenuItems to="/History">History</MenuItems>);
+        //menuItems.push(<MenuItems to="/Settings">Settings</MenuItems>);
+        menuItems.push(<MenuItems to="#" onClick={handleDisconnect}>Disconnect</MenuItems>);
     }
     menuItems.push(<HStack>
         <ColorModeSwitcher/>

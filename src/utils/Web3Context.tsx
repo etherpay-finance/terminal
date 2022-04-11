@@ -12,8 +12,8 @@ interface Web3ContextInterface {
     wallet?: string;
     listener?: () => void;
 
-    setSigner: (signer: Signer) => void;
-    setWallet: (wallet: string) => void;
+    setSigner: (signer?: Signer) => void;
+    setWallet: (wallet?: string) => void;
     setListener: (listener: () => void) => void;
 }
 
@@ -22,7 +22,7 @@ class Web3ContextClass implements Web3ContextInterface {
     wallet: string | undefined;
     listener: (() => void) | undefined;
 
-    setSigner(signer: Signer): void {
+    setSigner(signer?: Signer): void {
         this.signer = signer;
 
         if (this.listener !== undefined) {
@@ -30,7 +30,7 @@ class Web3ContextClass implements Web3ContextInterface {
         }
     }
 
-    setWallet(wallet: string): void {
+    setWallet(wallet?: string): void {
         this.wallet = wallet;
 
         if (this.listener !== undefined) {
@@ -62,6 +62,10 @@ export const Web3Context = (props: {
         newWeb3Context.signer = web3Context.signer;
         newWeb3Context.wallet = web3Context.wallet;
         newWeb3Context.listener = web3Context.listener;
+
+        if (!newWeb3Context.wallet) {
+            setStoredWeb3Provider(undefined);
+        }
 
         setWeb3Context(newWeb3Context);
     });
