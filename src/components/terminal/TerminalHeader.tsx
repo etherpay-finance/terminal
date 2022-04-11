@@ -63,7 +63,7 @@ export const TerminalHeader = () => {
     let menuItems = [];
     if (web3Context !== undefined) {
         menuItems.push(
-            <MenuItems to={"https://etherscan.io/address/" + wallet} target="_blank">
+            <MenuItems to={"https://zapper.fi/account/" + wallet} target="_blank">
                 <HStack>
                     <BiUser/><Box>{shortAddress(wallet)}</Box>
                 </HStack>
