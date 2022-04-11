@@ -1,7 +1,7 @@
-import {Box, Text} from "@chakra-ui/react";
+import {Box, CircularProgress, Text} from "@chakra-ui/react";
 
 export const TerminalScreen = (props: { amount: string; currency: string; secondCurrency?: string;
-    secondAmount?: string}) => {
+    secondAmount?: string, isLoading?: boolean}) => {
     const amount = props.amount;
     const currency = props.currency;
     const secondCurrency = props.secondCurrency;
@@ -12,7 +12,11 @@ export const TerminalScreen = (props: { amount: string; currency: string; second
         {
             secondCurrency !== undefined && secondAmount !== undefined ?
                 <Text fontSize={'sm'} color={'gray.500'} fontWeight={'extrabold'}>
-                    {secondAmount} {secondCurrency}
+                    { props.isLoading ?
+                        <Box><CircularProgress isIndeterminate color='gray.500' size={15} /> Querying price... </Box>
+                        :
+                        secondAmount + " " + secondCurrency
+                    }
                 </Text>
                 :
                 undefined

@@ -119,7 +119,7 @@ export const Terminal = () => {
 
     return <TerminalLayout>
         <VStack spacing={8}>
-            <TerminalScreen amount={amount} currency={"$"} secondAmount={secondAmount} secondCurrency={'Ξ'}/>
+            <TerminalScreen amount={amount} currency={"$"} secondAmount={secondAmount} secondCurrency={'Ξ'} isLoading={isLoading}/>
             <TerminalNumPad onAmountUpdated={onAmountUpdated} onConfirm={onConfirm} isLoading={isLoading}/>
         </VStack>
     </TerminalLayout>
