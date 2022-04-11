@@ -56,7 +56,7 @@ export const TerminalNumPad = (props: { onAmountUpdated: (amount: string) => voi
                         </Box>
                     </Button>
                 ))}
-                <Button colorScheme={'yellow'} size={'xl'} onClick={() => onKeyPressed('clearEntry')}>
+                <Button colorScheme={'orange'} size={'xl'} onClick={() => onKeyPressed('clearEntry')}>
                     <Box m={3}>
                         <Text fontWeight={'semibold'}>CE</Text>
                     </Box>
