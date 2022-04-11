@@ -101,7 +101,6 @@ export const Web3Context = (props: {
                 return;
             }
 
-            web3Context.signer.provider.off("network");
             web3Context.signer.provider.off("accountsChanged");
             web3Context.signer.provider.off("chainChanged");
             web3Context.signer.provider.off("disconnect");
