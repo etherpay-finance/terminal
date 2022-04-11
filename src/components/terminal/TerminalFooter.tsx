@@ -12,6 +12,7 @@ export const TerminalFooter = () => {
                         as="a"
                         href="https://etherscan.io/address/0x816e922bE15674E68aACB275D6649b5C6BE0551d"
                         aria-label="Donate"
+                        target="_blank"
                         icon={<FaDonate fontSize="1.25rem" />}
                     >
                         Donate
@@ -22,13 +23,15 @@ export const TerminalFooter = () => {
                         as="a"
                         href="https://www.linkedin.com/in/marcin-gorzynski/?locale=en_US"
                         aria-label="LinkedIn"
+                        target="_blank"
                         icon={<FaLinkedin fontSize="1.25rem" />}
                     />
-                    <IconButton as="a" href="https://github.com/marino39" aria-label="GitHub" icon={<FaGithub fontSize="1.25rem" />} />
+                    <IconButton as="a" href="https://github.com/marino39" target="_blank" aria-label="GitHub" icon={<FaGithub fontSize="1.25rem" />} />
                     <IconButton
                         as="a"
                         href="https://twitter.com/marino2008"
                         aria-label="Twitter"
+                        target="_blank"
                         icon={<FaTwitter fontSize="1.25rem" />}
                     />
                 </ButtonGroup>

@@ -14,8 +14,8 @@ import {useCallback, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {shortAddress} from "../../utils/ethAddressUtils";
 
-const MenuItems = (props: { children: any, onClick?: React.MouseEventHandler<HTMLParagraphElement> | undefined, isLast?: boolean, to?: string | undefined; }) => {
-    const { children, isLast, to = "/", ...rest } = props;
+const MenuItems = (props: { children: any, onClick?: React.MouseEventHandler<HTMLParagraphElement> | undefined, isLast?: boolean, to?: string | undefined; target?: string | undefined }) => {
+    const { children, isLast, to = "/", target, ...rest } = props;
     return (
         <Text
             mb={{ base: isLast ? 0 : 3, sm: 0 }}
@@ -25,7 +25,11 @@ const MenuItems = (props: { children: any, onClick?: React.MouseEventHandler<HTM
             {...rest}
             onClick={props.onClick}
         >
-            <Link to={to}>{children}</Link>
+            { to.startsWith("http") ?
+                <a href={to} target={target}>{children}</a>
+                :
+                <Link to={to} target={target}>{children}</Link>
+            }
         </Text>
     )
 }
@@ -58,10 +62,12 @@ export const TerminalHeader = () => {
 
     let menuItems = [];
     if (web3Context !== undefined) {
-        menuItems.push(<MenuItems to="#">
-            <HStack>
-                <BiUser/><Box>{shortAddress(wallet)}</Box>
-            </HStack></MenuItems>);
+        menuItems.push(
+            <MenuItems to={"https://etherscan.io/address/" + wallet} target="_blank">
+                <HStack>
+                    <BiUser/><Box>{shortAddress(wallet)}</Box>
+                </HStack>
+            </MenuItems>);
         //menuItems.push(<MenuItems to="/History">History</MenuItems>);
         //menuItems.push(<MenuItems to="/Settings">Settings</MenuItems>);
         menuItems.push(<MenuItems to="#" onClick={handleDisconnect}>Disconnect</MenuItems>);
