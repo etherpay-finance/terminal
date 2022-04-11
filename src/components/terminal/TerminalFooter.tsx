@@ -1,10 +1,9 @@
 import {Box, ButtonGroup, Container, IconButton, Stack, Text} from "@chakra-ui/react";
 import {FaDonate, FaGithub, FaLinkedin, FaTwitter} from "react-icons/all";
-import {Logo} from "../Logo";
 import * as React from "react";
 
 export const TerminalFooter = () => {
-    return <Container as="footer" role="contentinfo" py={{ base: '10', md: '14' }}>
+    return <Container as="footer" role="contentinfo" py={{ base: '10', md: '14' }} maxW={"100%"} px={0}>
         <Stack spacing={{ base: '3', md: '4' }}>
             <Stack justify="space-between" direction="row" align="center">
                 <ButtonGroup variant="ghost">

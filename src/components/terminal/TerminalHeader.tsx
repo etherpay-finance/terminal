@@ -5,7 +5,7 @@ import {
     Box,
     Flex,
     Spacer,
-    HStack
+    HStack, Container
 } from "@chakra-ui/react";
 import {Logo} from "../Logo";
 import {BiX, BiMenu, BiUser} from "react-icons/all";
@@ -76,7 +76,7 @@ export const TerminalHeader = () => {
         <ColorModeSwitcher/>
     </HStack>);
 
-    return <Flex
+    return<Flex
                 as="nav"
                 align="center"
                 justify="space-between"
