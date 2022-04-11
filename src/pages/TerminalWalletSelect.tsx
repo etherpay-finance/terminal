@@ -4,8 +4,6 @@ import {useLocalStorage} from "../utils/useLocalStorage";
 import {useWeb3Context} from "../utils/Web3Context";
 import {useCallback, useEffect} from "react";
 import {ethers} from "ethers";
-import { RiSecurePaymentLine } from "react-icons/ri";
-import { GrMoney } from "react-icons/gr";
 import { GiReceiveMoney } from "react-icons/gi";
 
 export const TerminalWalletSelect = () => {
