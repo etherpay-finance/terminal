@@ -81,7 +81,9 @@ export const Terminal = () => {
             setChainId(chainId);
         }
 
+        LogRocket.startNewSession();
         LogRocket.track("OpenTerminalPage");
+
         fetchData();
     }, []);
 

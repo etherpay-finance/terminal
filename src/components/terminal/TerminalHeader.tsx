@@ -76,7 +76,7 @@ export const TerminalHeader = () => {
         <ColorModeSwitcher/>
     </HStack>);
 
-    return<Flex
+    return <Flex
                 as="nav"
                 align="center"
                 justify="space-between"

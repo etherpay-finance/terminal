@@ -22,6 +22,7 @@ export const TerminalPayment = (props: {}) => {
     const query = useQuery();
 
     useEffect(() => {
+        LogRocket.startNewSession();
         LogRocket.track("OpenTerminalPaymentPage");
     }, [])
 

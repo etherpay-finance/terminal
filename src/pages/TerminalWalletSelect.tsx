@@ -69,6 +69,7 @@ export const TerminalWalletSelect = () => {
             onMetamaskSelect();
         }
 
+        LogRocket.startNewSession();
         LogRocket.track("OpenTerminalHomePage");
     }, []);
 
