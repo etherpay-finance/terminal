@@ -7,6 +7,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 import {useCallback, useEffect, useState} from "react";
 import {useWeb3Context} from "../utils/Web3Context";
+import LogRocket from "logrocket";
 
 function useQuery() {
     const { search } = useLocation();
@@ -19,6 +20,10 @@ export const TerminalPayment = (props: {}) => {
 
     const navigate = useNavigate();
     const query = useQuery();
+
+    useEffect(() => {
+        LogRocket.track("OpenTerminalPaymentPage");
+    }, [])
 
     const cancel = useCallback(function () {
         navigate("/");

@@ -8,6 +8,7 @@ import {useNavigate} from "react-router-dom";
 import {useWeb3Context, Web3ContextInterface} from "../utils/Web3Context";
 import { UniswapV3Oracle } from "../utils/uniswapV3Oracle";
 import {TokenPair} from "../utils/PriceOracle";
+import LogRocket from "logrocket";
 
 const tokensByChainId = {
     1: {
@@ -80,6 +81,7 @@ export const Terminal = () => {
             setChainId(chainId);
         }
 
+        LogRocket.track("OpenTerminalPage");
         fetchData();
     }, []);
 

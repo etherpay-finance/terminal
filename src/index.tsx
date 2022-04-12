@@ -5,6 +5,13 @@ import { App } from "./App"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
 
+import LogRocket from 'logrocket';
+// @ts-ignore
+import setupLogRocketReact from 'logrocket-react';
+
+LogRocket.init('h4vzcg/terminal');
+setupLogRocketReact(LogRocket);
+
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />

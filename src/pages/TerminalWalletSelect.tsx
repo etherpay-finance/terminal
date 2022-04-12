@@ -5,6 +5,7 @@ import {useWeb3Context} from "../utils/Web3Context";
 import {useCallback, useEffect} from "react";
 import {ethers} from "ethers";
 import { GiReceiveMoney } from "react-icons/gi";
+import LogRocket from "logrocket";
 
 export const TerminalWalletSelect = () => {
     const web3Context = useWeb3Context();
@@ -67,7 +68,9 @@ export const TerminalWalletSelect = () => {
         if (storedWeb3Provider === "metamask") {
             onMetamaskSelect();
         }
-    });
+
+        LogRocket.track("OpenTerminalHomePage");
+    }, []);
 
     return <TerminalSimpleLayout>
         <Container>
