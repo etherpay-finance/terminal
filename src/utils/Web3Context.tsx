@@ -66,8 +66,6 @@ export const Web3Context = (props: {
 
         if (!newWeb3Context.wallet) {
             setStoredWeb3Provider(undefined);
-        } else {
-            LogRocket.identify(newWeb3Context.wallet, {});
         }
 
         setWeb3Context(newWeb3Context);

@@ -21,9 +21,14 @@ export const TerminalPayment = (props: {}) => {
     const navigate = useNavigate();
     const query = useQuery();
 
+    const web3Context = useWeb3Context();
+
     useEffect(() => {
         LogRocket.startNewSession();
         LogRocket.track("OpenTerminalPaymentPage");
+        if (web3Context.wallet != null) {
+            LogRocket.identify(web3Context.wallet, {});
+        }
     }, [])
 
     const cancel = useCallback(function () {

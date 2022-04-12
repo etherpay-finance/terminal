@@ -54,7 +54,7 @@ export const TerminalWalletSelect = () => {
             });
 
             web3Context.setSigner(signer);
-            web3Context.setWallet("metamask");
+            web3Context.setWallet(await signer.getAddress());
             setStoredWeb3Provider("metamask");
 
             console.log("Provider:", signer.provider);

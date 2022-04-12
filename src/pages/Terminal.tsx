@@ -83,6 +83,9 @@ export const Terminal = () => {
 
         LogRocket.startNewSession();
         LogRocket.track("OpenTerminalPage");
+        if (web3Context.wallet != null) {
+            LogRocket.identify(web3Context.wallet, {});
+        }
 
         fetchData();
     }, []);
