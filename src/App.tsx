@@ -11,6 +11,9 @@ import { Terminal } from "./pages/Terminal";
 import { TerminalPayment } from "./pages/TerminalPayment";
 import {TerminalWalletSelect} from "./pages/TerminalWalletSelect";
 
+import LogRocket from 'logrocket';
+LogRocket.init('h4vzcg/terminal');
+
 export const App = () => {
   return (
       <ChakraProvider theme={theme}>

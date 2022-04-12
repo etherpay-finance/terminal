@@ -4,6 +4,7 @@ import {ethers, Signer, VoidSigner} from "ethers";
 
 import * as React from "react";
 import { useLocalStorage } from './useLocalStorage';
+import LogRocket from "logrocket";
 
 const internalWeb3Context = createContext(undefined as unknown as Web3ContextInterface);
 
@@ -65,6 +66,8 @@ export const Web3Context = (props: {
 
         if (!newWeb3Context.wallet) {
             setStoredWeb3Provider(undefined);
+        } else {
+            LogRocket.identify(newWeb3Context.wallet, {});
         }
 
         setWeb3Context(newWeb3Context);
