@@ -8,6 +8,9 @@ import { BeatLoader } from "react-spinners";
 import {useCallback, useEffect, useState} from "react";
 import {useWeb3Context} from "../utils/Web3Context";
 import LogRocket from "logrocket";
+import {getUriFromSource} from "react-native-svg/lib/typescript/LocalSvg";
+import {BigNumber, ethers} from "ethers";
+import { BiCheckCircle } from "react-icons/bi";
 
 function useQuery() {
     const { search } = useLocation();
@@ -15,25 +18,17 @@ function useQuery() {
 }
 
 export const TerminalPayment = (props: {}) => {
-    const fgColor = useColorModeValue("#2D3748", "#E2E8F0")
-    const bgColor = useColorModeValue("#FFFFFF", "#1A202C")
+    const fgColor = useColorModeValue("#2D3748", "#E2E8F0");
+    const bgColor = useColorModeValue("#FFFFFF", "#1A202C");
+    const checkColor = useColorModeValue("#38B2AC", "#4FD1C5");
 
     const navigate = useNavigate();
     const query = useQuery();
 
+    const [isConfirmed, setConfirmed] = useState(true)
+    const [balance, setBalance] = useState(undefined as unknown as BigNumber)
+
     const web3Context = useWeb3Context();
-
-    useEffect(() => {
-        LogRocket.startNewSession();
-        LogRocket.track("OpenTerminalPaymentPage");
-        if (web3Context.wallet != null) {
-            LogRocket.identify(web3Context.wallet, {});
-        }
-    }, [])
-
-    const cancel = useCallback(function () {
-        navigate("/");
-    }, [navigate]);
 
     // @ts-ignore
     let amount: string = query.get("amount") !== null ? query.get("amount") : ""
@@ -59,22 +54,69 @@ export const TerminalPayment = (props: {}) => {
         navigate("/");
     }
 
+    const onBalanceUpdate = useCallback(async () => {
+        const newBalance = await web3Context.signer?.getBalance();
+        if (!newBalance) {
+            return;
+        }
+
+        if (balance === undefined) {
+            setBalance(newBalance);
+        }
+
+        if (balance && newBalance && newBalance.eq(balance.add(ethers.utils.parseUnits(secondAmount)))) {
+            setConfirmed(true);
+        }
+    }, [balance])
+
+    useEffect(() => {
+        LogRocket.startNewSession();
+        LogRocket.track("OpenTerminalPaymentPage");
+        if (web3Context.wallet != null) {
+            LogRocket.identify(web3Context.wallet, {});
+        }
+    }, [])
+
+    useEffect(() => {
+        const timer = setInterval(onBalanceUpdate, 1000);
+        return () => clearInterval(timer);
+    }, [onBalanceUpdate])
+
+    const cancel = useCallback(function () {
+        navigate("/");
+    }, [navigate]);
+
     return <TerminalLayout>
-        <VStack spacing={5}>
-            <TerminalScreen amount={amount} currency={"$"} secondAmount={secondAmount} secondCurrency={'Ξ'}/>
-            <Box>
-                <QRCode value={
+            {!isConfirmed ?
+                <VStack spacing={5}>
+                    <TerminalScreen amount={amount} currency={"$"} secondAmount={secondAmount} secondCurrency={'Ξ'}/>
+                    <Box>
+                        <QRCode value={
                             "ethereum:" + to + "@" + chainId.toString() + "?value=" + secondAmount + "e18"
                         }
-                        fgColor={fgColor}
-                        bgColor={bgColor}
-                />
-            </Box>
-            <Container>
-                <Button mt={0} isFullWidth size='lg' colorScheme='red' variant='solid' onClick={cancel}>
-                    Cancel
-                </Button>
-            </Container>
-        </VStack>
+                                fgColor={fgColor}
+                                bgColor={bgColor}
+                        />
+
+                    </Box>
+                    <Container>
+                        <Button mt={0} isFullWidth size='lg' colorScheme='red' variant='solid' onClick={cancel}>
+                            Cancel
+                        </Button>
+                    </Container>
+                </VStack>
+                :
+                <VStack spacing={5}>
+                    <TerminalScreen amount={amount} currency={"$"} secondAmount={secondAmount} secondCurrency={'Ξ'}/>
+                    <Box>
+                        <BiCheckCircle size={250} color={checkColor}/>
+                    </Box>
+                    <Container>
+                        <Button mt={0} isFullWidth size='lg' colorScheme='teal' variant='solid' onClick={cancel}>
+                            Done
+                        </Button>
+                    </Container>
+                </VStack>
+            }
     </TerminalLayout>
 }
