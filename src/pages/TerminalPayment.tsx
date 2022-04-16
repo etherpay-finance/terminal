@@ -25,8 +25,8 @@ export const TerminalPayment = (props: {}) => {
     const navigate = useNavigate();
     const query = useQuery();
 
-    const [isConfirmed, setConfirmed] = useState(true)
-    const [balance, setBalance] = useState(undefined as unknown as BigNumber)
+    const [isConfirmed, setConfirmed] = useState(false);
+    const [balance, setBalance] = useState(undefined as unknown as BigNumber);
 
     const web3Context = useWeb3Context();
 
