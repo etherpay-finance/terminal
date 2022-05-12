@@ -98,24 +98,21 @@ export const TerminalPayment = (props: {}) => {
                                 bgColor={bgColor}
                         />
 
-                    </Box>
-                    <Container>
-                        <Button mt={0} isFullWidth size='lg' colorScheme='red' variant='solid' onClick={cancel}>
+                        <Button my={5} isFullWidth size='lg' colorScheme='red' variant='solid' onClick={cancel}>
                             Cancel
                         </Button>
-                    </Container>
+                    </Box>
                 </VStack>
                 :
                 <VStack spacing={5}>
                     <TerminalScreen amount={amount} currency={"$"} secondAmount={secondAmount} secondCurrency={'Ξ'}/>
                     <Box>
                         <BiCheckCircle size={250} color={checkColor}/>
-                    </Box>
-                    <Container>
-                        <Button mt={0} isFullWidth size='lg' colorScheme='teal' variant='solid' onClick={cancel}>
+
+                        <Button my={5} isFullWidth size='lg' colorScheme='teal' variant='solid' onClick={cancel}>
                             Done
                         </Button>
-                    </Container>
+                    </Box>
                 </VStack>
             }
     </TerminalLayout>
