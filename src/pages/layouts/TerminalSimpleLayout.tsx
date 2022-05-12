@@ -8,7 +8,9 @@ export const TerminalSimpleLayout = (props: { children: string | number | boolea
         <Grid minH="100%" p={3} pt={2}>
             <TerminalSimpleHeader/>
             {props.children}
-            <TerminalFooter/>
+            <Box pos={"fixed"} bottom={0} left={0} w={"100%"}>
+                <TerminalFooter/>
+            </Box>
         </Grid>
     </Box>
 };
