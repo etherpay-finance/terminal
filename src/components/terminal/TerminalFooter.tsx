@@ -1,9 +1,11 @@
-import {Box, ButtonGroup, Container, IconButton, Stack, Text} from "@chakra-ui/react";
+import {Box, ButtonGroup, Container, IconButton, Stack, Text, useColorModeValue} from "@chakra-ui/react";
 import {FaDonate, FaGithub, FaLinkedin, FaTwitter} from "react-icons/all";
 import * as React from "react";
 
 export const TerminalFooter = () => {
-    return <Container as="footer" role="contentinfo" py={5} maxW={"100%"} px={5}>
+    const bgColor = useColorModeValue("#FFFFFF", "#1A202C");
+
+    return <Container as="footer" role="contentinfo" py={5} maxW={"100%"} px={5} bgColor={bgColor}>
         <Stack spacing={{ base: '3', md: '4' }}>
             <Stack justify="space-between" direction="row" align="center">
                 <ButtonGroup variant="ghost">
