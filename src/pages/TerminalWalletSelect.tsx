@@ -23,13 +23,10 @@ export const TerminalWalletSelect = () => {
             }
 
             // @ts-ignore
-            const reqAcc = await window.ethereum.send('eth_requestAccounts');
-            console.log("req acc:", reqAcc);
-            // @ts-ignore
-            console.log("eth:", window.ethereum);
-            // @ts-ignore
             const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
             const signer = provider.getSigner();
+
+            await provider.send('eth_requestAccounts', []);
 
             // Subscribe to accounts change
             // @ts-ignore
