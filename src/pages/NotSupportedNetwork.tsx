@@ -1,14 +1,16 @@
 import {Text, VStack} from "@chakra-ui/react";
 
 import {TerminalSimpleLayout} from "./layouts/TerminalSimpleLayout";
-import {WiThunderstorm} from "react-icons/all";
+import {
+    RiErrorWarningLine,
+} from "react-icons/all";
 
 function NotSupportedNetwork() {
     return <TerminalSimpleLayout>
-        <VStack mt={20} spacing={8}>
-            <WiThunderstorm size={150}/>
+        <VStack mt={40} spacing={8}>
+            <RiErrorWarningLine size={150}/>
             <Text fontWeight={"bold"}>
-                Not supported network!
+                Network not supported. Please select other network!
             </Text>
         </VStack>
     </TerminalSimpleLayout>
