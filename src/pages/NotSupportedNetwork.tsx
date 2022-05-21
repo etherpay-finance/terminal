@@ -7,7 +7,7 @@ import {
 
 function NotSupportedNetwork() {
     return <TerminalSimpleLayout>
-        <VStack mt={40} spacing={8}>
+        <VStack mt={30} spacing={8}>
             <RiErrorWarningLine size={150}/>
             <Text fontWeight={"bold"}>
                 Network not supported. Please select other network!
