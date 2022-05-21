@@ -1,7 +1,7 @@
-import {Box, Container, Spacer, Text, VStack} from "@chakra-ui/react";
+import {Text, VStack} from "@chakra-ui/react";
 
 import {TerminalSimpleLayout} from "./layouts/TerminalSimpleLayout";
-import {FaRegFrownOpen, FaRegSadTear, WiThunderstorm} from "react-icons/all";
+import {WiThunderstorm} from "react-icons/all";
 
 function NotSupportedNetwork() {
     return <TerminalSimpleLayout>
