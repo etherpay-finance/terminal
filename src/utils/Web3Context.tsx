@@ -11,16 +11,19 @@ const internalWeb3Context = createContext(undefined as unknown as Web3ContextInt
 export interface Web3ContextInterface {
     signer?: Signer;
     wallet?: string;
+    network?: number;
     listener?: () => void;
 
     setSigner: (signer?: Signer) => void;
     setWallet: (wallet?: string) => void;
+    setNetwork: (network?: number) => void;
     setListener: (listener: () => void) => void;
 }
 
 class Web3ContextClass implements Web3ContextInterface {
     signer: Signer | undefined;
     wallet: string | undefined;
+    network: number | undefined;
     listener: (() => void) | undefined;
 
     setSigner(signer?: Signer): void {
@@ -33,6 +36,14 @@ class Web3ContextClass implements Web3ContextInterface {
 
     setWallet(wallet?: string): void {
         this.wallet = wallet;
+
+        if (this.listener !== undefined) {
+            this.listener();
+        }
+    }
+
+    setNetwork(network?: number): void {
+        this.network = network;
 
         if (this.listener !== undefined) {
             this.listener();
@@ -62,6 +73,7 @@ export const Web3Context = (props: {
         const newWeb3Context = new Web3ContextClass() as Web3ContextInterface
         newWeb3Context.signer = web3Context.signer;
         newWeb3Context.wallet = web3Context.wallet;
+        newWeb3Context.network = web3Context.network;
         newWeb3Context.listener = web3Context.listener;
 
         if (!newWeb3Context.wallet) {
@@ -84,6 +96,8 @@ export const Web3Context = (props: {
 
     const onChainChangedCallback = useCallback((chainId: number) => {
         console.log("ChainChanged:", chainId);
+
+        web3Context.setNetwork(chainId);
     }, []);
 
     const onDisconnect = useCallback((code: number, reason: string) => {
