@@ -3,7 +3,7 @@ import {useWeb3Context} from "./Web3Context";
 import {useState, useEffect} from "react";
 import {TerminalSimpleLayout} from "../pages/layouts/TerminalSimpleLayout";
 
-function IsSupportedNetwork(props: {children: React.ReactElement, supportedNetworks: Array<number>}) {
+function IsSupportedNetwork(props: {children: React.ReactElement, supportedNetworks: Array<number>, whenNotSupportedNetwork: React.ReactElement}) {
     const web3Context = useWeb3Context();
     const [isSupported, setIsSupported] = useState(true);
 
@@ -25,9 +25,7 @@ function IsSupportedNetwork(props: {children: React.ReactElement, supportedNetwo
         {props.children}
     </Box>
 
-    const whenNotSupported = <TerminalSimpleLayout>
-        Not supported network!
-    </TerminalSimpleLayout>
+    const whenNotSupported = props.whenNotSupportedNetwork
 
     if (!web3Context.wallet) {
         return whenSupported;

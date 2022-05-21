@@ -11,13 +11,14 @@ import { Terminal } from "./pages/Terminal";
 import { TerminalPayment } from "./pages/TerminalPayment";
 import {TerminalWalletSelect} from "./pages/TerminalWalletSelect";
 import IsSupportedNetwork from "./utils/IsSupportedNetwork";
+import NotSupportedNetwork from "./pages/NotSupportedNetwork";
 
 
 export const App = () => {
   return (
       <ChakraProvider theme={theme}>
           <Web3Context walletSelection={<TerminalWalletSelect/>}>
-              <IsSupportedNetwork supportedNetworks={[1, 10, 42161, 1337]}>
+              <IsSupportedNetwork supportedNetworks={[1, 10, 42161, 1337]} whenNotSupportedNetwork={<NotSupportedNetwork/>}>
                   <BrowserRouter>
                       <Routes>
                           <Route path="/" element={<Terminal/>} />
