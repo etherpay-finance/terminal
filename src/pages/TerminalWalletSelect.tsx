@@ -50,8 +50,10 @@ export const TerminalWalletSelect = () => {
                 provider.emit("disconnect", code, reason);
             });
 
-            web3Context.setSigner(signer);
-            web3Context.setWallet(await signer.getAddress());
+            web3Context.onSetProvider(provider);
+            web3Context.onSetSigner(signer);
+            web3Context.onSetWallet(await signer.getAddress());
+            web3Context.onSetNetwork((await provider.getNetwork()).chainId)
             setStoredWeb3Provider("metamask");
 
             console.log("Provider:", signer.provider);

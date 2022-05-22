@@ -13,6 +13,7 @@ import {useWeb3Context} from "../../utils/Web3Context";
 import {useCallback, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {shortAddress} from "../../utils/ethAddressUtils";
+import NetworkSwitcher from "../buttons/NetworkSwitcher";
 
 const MenuItems = (props: { children: any, onClick?: React.MouseEventHandler<HTMLParagraphElement> | undefined, isLast?: boolean, to?: string | undefined; target?: string | undefined }) => {
     const { children, isLast, to = "/", target, ...rest } = props;
@@ -44,8 +45,8 @@ export const TerminalHeader = () => {
     const menuBgColor = useColorModeValue('gray.100', 'gray.700')
 
     const handleDisconnect = useCallback(() => {
-        web3Context.setWallet(undefined);
-        web3Context.setSigner(undefined);
+        web3Context.onSetWallet(undefined);
+        web3Context.onSetSigner(undefined);
     }, [web3Context]);
 
     useEffect(() => {
@@ -69,13 +70,9 @@ export const TerminalHeader = () => {
                     <BiUser/><Box>{shortAddress(wallet)}</Box>
                 </HStack>
             </MenuItems>);
-        /*menuItems.push(<MenuItems><HStack>
-            <Text>Network:</Text> <Select variant='unstyled'>
-                    <option value={1}>
-                        Ethereum
-                    </option>
-                </Select>
-            </HStack></MenuItems>);*/
+        menuItems.push(<MenuItems>
+            <NetworkSwitcher/>
+        </MenuItems>);
         //menuItems.push(<MenuItems to="/Settings">Settings</MenuItems>);
         menuItems.push(<MenuItems to="#" onClick={handleDisconnect}>Disconnect</MenuItems>);
     }

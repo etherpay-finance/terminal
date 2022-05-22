@@ -4,29 +4,120 @@ import {ethers, Signer, VoidSigner} from "ethers";
 
 import * as React from "react";
 import { useLocalStorage } from './useLocalStorage';
-import LogRocket from "logrocket";
 
 const internalWeb3Context = createContext(undefined as unknown as Web3ContextInterface);
 
+const networkDeffinitions: {[key: number]: any} = {
+    1: {
+        chainId: '0x01',
+        chainName: 'Ethereum',
+        nativeCurrency: {
+            name: 'Ether',
+            symbol: 'ETH',
+            decimals: 18,
+        },
+        rpcUrls: ['https://mainnet.infura.io/v3/'],
+        blockExplorerUrls: ['https://etherscan.io']
+    },
+    10: {
+        chainId: '0xa',
+        chainName: 'Optimism',
+        nativeCurrency: {
+            name: 'Ether',
+            symbol: 'ETH',
+            decimals: 18,
+        },
+        rpcUrls: ['https://mainnet.optimism.io'],
+        blockExplorerUrls: ['https://optimistic.etherscan.io']
+    },
+    42161: {
+        chainId: '0x' + (42161).toString(16),
+        chainName: 'Arbitrum',
+        nativeCurrency: {
+            name: 'Ether',
+            symbol: 'ETH',
+            decimals: 18,
+        },
+        rpcUrls: ['https://arb1.arbitrum.io/rpc'],
+        blockExplorerUrls: ['https://arbiscan.io']
+    },
+}
+
 export interface Web3ContextInterface {
+    provider?: ethers.providers.Web3Provider;
     signer?: Signer;
     wallet?: string;
     network?: number;
     listener?: () => void;
 
-    setSigner: (signer?: Signer) => void;
-    setWallet: (wallet?: string) => void;
-    setNetwork: (network?: number) => void;
+    setNetwork: (network?: number) => void
+
+    onSetProvider: (provider?: ethers.providers.Web3Provider) => void;
+    onSetSigner: (signer?: Signer) => void;
+    onSetWallet: (wallet?: string) => void;
+    onSetNetwork: (network?: number) => void;
     setListener: (listener: () => void) => void;
 }
 
 class Web3ContextClass implements Web3ContextInterface {
+    provider: ethers.providers.Web3Provider | undefined
     signer: Signer | undefined;
     wallet: string | undefined;
     network: number | undefined;
     listener: (() => void) | undefined;
 
-    setSigner(signer?: Signer): void {
+    setNetwork(network?: number): void {
+        const thiz = this
+        async function selectNetwork() {
+            let error = false;
+
+            try {
+                await thiz.provider?.send(
+                    'wallet_switchEthereumChain',
+                    [{ chainId: '0x' + network?.toString(16) }],
+                );
+            } catch (switchError: any) {
+                error = true
+                console.log(switchError)
+                // This error code indicates that the chain has not been added to MetaMask.
+                if (switchError.code === 4902 || switchError.data?.originalError?.code === 4902) {
+                    console.log(networkDeffinitions[network ? network : 0])
+                    if (networkDeffinitions[network ? network : 0]) {
+                        error = false
+                        try {
+                            await thiz.provider?.send(
+                                'wallet_addEthereumChain',
+                                [networkDeffinitions[network ? network : 0]]
+                            );
+                        } catch (addError) {
+                            console.log("error", addError)
+                            error = true
+                        }
+                    }
+                }
+            }
+
+            if (!error) {
+                thiz.network = network;
+
+                if (thiz.listener !== undefined) {
+                    thiz.listener();
+                }
+            }
+        }
+
+        void selectNetwork()
+    }
+
+    onSetProvider(provider?: ethers.providers.Web3Provider): void {
+        this.provider = provider;
+
+        if (this.listener !== undefined) {
+            this.listener();
+        }
+    }
+
+    onSetSigner(signer?: Signer): void {
         this.signer = signer;
 
         if (this.listener !== undefined) {
@@ -34,7 +125,7 @@ class Web3ContextClass implements Web3ContextInterface {
         }
     }
 
-    setWallet(wallet?: string): void {
+    onSetWallet(wallet?: string): void {
         this.wallet = wallet;
 
         if (this.listener !== undefined) {
@@ -42,7 +133,7 @@ class Web3ContextClass implements Web3ContextInterface {
         }
     }
 
-    setNetwork(network?: number): void {
+    onSetNetwork(network?: number): void {
         this.network = network;
 
         if (this.listener !== undefined) {
@@ -71,6 +162,7 @@ export const Web3Context = (props: {
     web3Context.setListener(() => {
         console.log("OnChange:", web3Context);
         const newWeb3Context = new Web3ContextClass() as Web3ContextInterface
+        newWeb3Context.provider = web3Context.provider;
         newWeb3Context.signer = web3Context.signer;
         newWeb3Context.wallet = web3Context.wallet;
         newWeb3Context.network = web3Context.network;
@@ -94,10 +186,11 @@ export const Web3Context = (props: {
         }
     }, []);
 
-    const onChainChangedCallback = useCallback((chainId: number) => {
-        console.log("ChainChanged:", chainId);
+    const onChainChangedCallback = useCallback((chainIdStr: string) => {
+        const chainId = parseInt(chainIdStr, 16)
 
-        web3Context.setNetwork(chainId);
+        console.log("ChainChanged:", chainId);
+        web3Context.onSetNetwork(chainId);
     }, []);
 
     const onDisconnect = useCallback((code: number, reason: string) => {
