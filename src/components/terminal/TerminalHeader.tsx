@@ -83,8 +83,7 @@ export const TerminalHeader = () => {
         <ColorModeSwitcher/>
     </HStack>);
 
-    return <VStack>
-        <Flex
+    return <Flex
             as="nav"
             align="center"
             justify="space-between"
@@ -92,33 +91,31 @@ export const TerminalHeader = () => {
             w="100%"
             pl={2}
             pr={2}>
-            <Logo text="Terminal" />
-            <Spacer />
-            <ButtonGroup variant="ghost">
-                <IconButton
-                    as="a"
-                    aria-label={"Menu"}
-                    target="_blank"
-                    icon={show ? <BiX fontSize="1.25rem"/> : <BiMenu fontSize="1.25rem"/>}
-                    onClick={toggleMenu}
-                    />
-            </ButtonGroup>
-        </Flex>
+        <Logo text="Terminal" />
+        <Spacer />
+        <ButtonGroup variant="ghost" display={{ base: "block", md: "none" }}>
+            <IconButton
+                as="a"
+                aria-label={"Menu"}
+                target="_blank"
+                icon={show ? <BiX fontSize="1.25rem"/> : <BiMenu fontSize="1.25rem"/>}
+                onClick={toggleMenu}
+                />
+        </ButtonGroup>
         <Box
             display={{ base: show ? "block" : "none", md: "block" }}
             flexBasis={{ base: "100%", md: "auto" }}
-            bgColor={menuBgColor}
-            w={'100%'}
+            bgColor={[menuBgColor, 'inherit']}
         >
             <Flex
                 align={["center", "center", "center", "center"]}
                 justify={["center", "space-between", "flex-end", "flex-end"]}
                 direction={["column", "row", "row", "row"]}
-                pt={[5, 5, 5, 5]}
-                pb={[3, 3, 3, 3]}
+                pt={[5, 5, 0, 0]}
+                pb={[3, 3, 0, 0]}
             >
                 {menuItems}
             </Flex>
         </Box>
-    </VStack>
+    </Flex>
 }
