@@ -70,9 +70,6 @@ export const TerminalHeader = () => {
                     <BiUser/><Box>{shortAddress(wallet)}</Box>
                 </HStack>
             </MenuItems>);
-        menuItems.push(<MenuItems>
-            <NetworkSwitcher/>
-        </MenuItems>);
         //menuItems.push(<MenuItems to="/Settings">Settings</MenuItems>);
         menuItems.push(<MenuItems to="#" onClick={handleDisconnect}>Disconnect</MenuItems>);
     }

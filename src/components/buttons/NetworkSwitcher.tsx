@@ -1,12 +1,22 @@
-import {Button, ButtonGroup, HStack, Text, Spacer, VStack} from "@chakra-ui/react";
-import { useState } from "react";
+import {
+    Button,
+    ButtonGroup,
+    HStack,
+    Text,
+    Spacer,
+    VStack,
+    Popover,
+    PopoverTrigger,
+    PopoverContent, useDisclosure
+} from "@chakra-ui/react";
 import {BiNetworkChart, FaEthereum, RiArrowDropDownLine} from "react-icons/all";
 import {useWeb3Context} from "../../utils/Web3Context";
 
 
-function NetworkSwitcher(props = {}) {
-    const [show, setShow] = useState(false)
+function NetworkSwitcher(props: {isDisabled?: boolean}) {
     const web3Context = useWeb3Context()
+
+    const { onOpen, onClose, isOpen } = useDisclosure()
 
     function isActiveNetwork(id: number): boolean {
         return id === web3Context.network;
@@ -23,50 +33,87 @@ function NetworkSwitcher(props = {}) {
         return "Unknown"
     }
 
+    function colorScheme(id: number): string {
+        if (id === 1) {
+            return "purple"
+        } else if (id === 10) {
+            return "red"
+        } else if (id === 42161) {
+            return "blue"
+        }
+        return "gray"
+    }
+
     return <VStack>
-        <HStack onClick={() => setShow(!show)}>
-            <BiNetworkChart/><Text>{chainName(web3Context.network ? web3Context.network : 0)}</Text><RiArrowDropDownLine/>
-        </HStack>
-        <ButtonGroup display={ show ? 'block' : 'none'} fontSize={'sm'} spacing={0} isAttached={true}>
-            <Button
-                variant='outline'
-                isActive={isActiveNetwork(1)}
-                colorScheme='purple'
-                aria-label='Network'
-                size='sm'
-                onClick={() => {web3Context.setNetwork(1)}}
+        <Popover
+            isOpen={isOpen}
+            onOpen={onOpen}
+            onClose={onClose}
+            closeOnBlur={true}>
+            <PopoverTrigger>
+                <Button
+                    variant='ghost'
+                    colorScheme={colorScheme(web3Context.network ? web3Context.network : 0)}
+                    aria-label='Network'
+                    size={'sm'}
+                    fontSize={'md'}
+                    isDisabled={props.isDisabled}
                 >
-                <FaEthereum/> ETH
-            </Button>
-            <Button
-                variant='outline'
-                isActive={isActiveNetwork(10)}
-                colorScheme='red'
-                aria-label='Network'
-                size='sm'
-                onClick={() => {web3Context.setNetwork(10)}}
-                >
-                <FaEthereum/>&nbsp;OP
-            </Button>
-            <Button
-                variant='outline'
-                isActive={isActiveNetwork(42161)}
-                colorScheme='blue'
-                aria-label='Network'
-                size='sm'
-                onClick={() => {web3Context.setNetwork(42161)}}
-                >
-                <BiNetworkChart/>&nbsp;Arb
-            </Button>
-            <Button
-                variant='outline'
-                disabled={true}
-                colorScheme='gray'
-                aria-label='Network'
-                size='sm'>
-                <BiNetworkChart/>&nbsp;ZkSync
-            </Button>
-        </ButtonGroup>
+                    <FaEthereum/>{chainName(web3Context.network ? web3Context.network : 0)}<RiArrowDropDownLine/>
+                </Button>
+            </PopoverTrigger>
+            <PopoverContent x={-50}>
+                <ButtonGroup fontSize={'lg'} spacing={0} isAttached={true}>
+                    <Button
+                        variant='outline'
+                        isActive={isActiveNetwork(1)}
+                        colorScheme='purple'
+                        aria-label='Network'
+                        size='lg'
+                        onClick={() => {
+                            web3Context.setNetwork(1)
+                            onClose()
+                        }}
+                    >
+                        <FaEthereum/> ETH
+                    </Button>
+                    <Button
+                        variant='outline'
+                        isActive={isActiveNetwork(10)}
+                        colorScheme='red'
+                        aria-label='Network'
+                        size='lg'
+                        onClick={() => {
+                            web3Context.setNetwork(10)
+                            onClose()
+                        }}
+                    >
+                        <FaEthereum/>&nbsp;OP
+                    </Button>
+                    <Button
+                        variant='outline'
+                        isActive={isActiveNetwork(42161)}
+                        colorScheme='blue'
+                        aria-label='Network'
+                        size='lg'
+                        onClick={() => {
+                            web3Context.setNetwork(42161)
+                            onClose()
+                        }}
+                    >
+                        <BiNetworkChart/>&nbsp;Arb
+                    </Button>
+                    <Button
+                        variant='outline'
+                        disabled={true}
+                        colorScheme='gray'
+                        aria-label='Network'
+                        size='lg'>
+                        <BiNetworkChart/>&nbsp;ZkSync
+                    </Button>
+                </ButtonGroup>
+            </PopoverContent>
+        </Popover>
     </VStack>
 }
 

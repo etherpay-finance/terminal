@@ -101,7 +101,8 @@ export const TerminalPayment = (props: {}) => {
     return <TerminalLayout>
             {!isConfirmed ?
                 <VStack spacing={5}>
-                    <TerminalScreen amount={amount} currency={"$"} secondAmount={secondAmount} secondCurrency={'Ξ'}/>
+                    <TerminalScreen amount={amount} currency={"$"} secondAmount={secondAmount} secondCurrency={'Ξ'}
+                                    isNetworkSwitcherDisabled={true}/>
                     <Box>
                         <QRCode value={
                             "ethereum:" + to + "@" + chainId.toString() + "?value=" + secondAmount + "e18"
@@ -117,7 +118,8 @@ export const TerminalPayment = (props: {}) => {
                 </VStack>
                 :
                 <VStack spacing={5}>
-                    <TerminalScreen amount={amount} currency={"$"} secondAmount={secondAmount} secondCurrency={'Ξ'}/>
+                    <TerminalScreen amount={amount} currency={"$"} secondAmount={secondAmount} secondCurrency={'Ξ'}
+                                    isNetworkSwitcherDisabled={true}/>
                     <Box>
                         <BiCheckCircle size={250} color={checkColor}/>
 
