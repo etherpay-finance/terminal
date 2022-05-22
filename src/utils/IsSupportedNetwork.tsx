@@ -1,7 +1,6 @@
 import {Box} from "@chakra-ui/react";
 import {useWeb3Context} from "./Web3Context";
 import {useState, useEffect} from "react";
-import {TerminalSimpleLayout} from "../pages/layouts/TerminalSimpleLayout";
 
 function IsSupportedNetwork(props: {children: React.ReactElement, supportedNetworks: Array<number>, whenNotSupportedNetwork: React.ReactElement}) {
     const web3Context = useWeb3Context();
