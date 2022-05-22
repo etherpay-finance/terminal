@@ -4,6 +4,7 @@ import {ethers, Signer, VoidSigner} from "ethers";
 
 import * as React from "react";
 import { useLocalStorage } from './useLocalStorage';
+import is from "issable"
 
 const internalWeb3Context = createContext(undefined as unknown as Web3ContextInterface);
 
@@ -186,8 +187,10 @@ export const Web3Context = (props: {
         }
     }, []);
 
-    const onChainChangedCallback = useCallback((chainIdStr: string) => {
-        const chainId = parseInt(chainIdStr, 16)
+    const onChainChangedCallback = useCallback((chainId: any) => {
+        if (is(chainId).string()) {
+            chainId = parseInt(chainId as unknown as string, 16)
+        }
 
         console.log("ChainChanged:", chainId);
         web3Context.onSetNetwork(chainId);
