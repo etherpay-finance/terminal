@@ -24,7 +24,7 @@ export const TerminalScreen = (props: { amount: string; currency: string; second
                 <Box fontSize={'md'} color={textColor} fontWeight={'extrabold'}>
                         <HStack>
                             { props.isLoading ?
-                                <Skeleton height='21px'/>
+                                <Skeleton width='100px' height='21px'/>
                                 :
                                 <Text pl={5}>{secondAmount.substring(0, 12) + " " + secondCurrency + ''}</Text>
                             }
