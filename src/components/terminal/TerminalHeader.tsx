@@ -106,6 +106,7 @@ export const TerminalHeader = () => {
             display={{ base: show ? "block" : "none", md: "block" }}
             flexBasis={{ base: "100%", md: "auto" }}
             bgColor={[menuBgColor, 'inherit']}
+            mt={[2, 2, 0, 0]}
         >
             <Flex
                 align={["center", "center", "center", "center"]}
