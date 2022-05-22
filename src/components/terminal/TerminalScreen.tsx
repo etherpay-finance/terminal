@@ -1,4 +1,4 @@
-import {Box, Text} from "@chakra-ui/react";
+import {Box, Skeleton, Text} from "@chakra-ui/react";
 
 export const TerminalScreen = (props: { amount: string; currency: string; secondCurrency?: string;
     secondAmount?: string, isLoading?: boolean}) => {
@@ -13,7 +13,7 @@ export const TerminalScreen = (props: { amount: string; currency: string; second
             secondCurrency !== undefined && secondAmount !== undefined ?
                 <Text fontSize={'sm'} color={'gray.500'} fontWeight={'extrabold'}>
                     { props.isLoading ?
-                        <Box> Querying price... </Box>
+                        <Skeleton height='21px' />
                         :
                         secondAmount + " " + secondCurrency
                     }
