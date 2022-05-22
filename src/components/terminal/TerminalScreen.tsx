@@ -7,7 +7,7 @@ export const TerminalScreen = (props: { amount: string; currency: string; second
     const secondCurrency = props.secondCurrency;
     const secondAmount = props.secondAmount;
 
-    const textColor = useColorModeValue('teal.500', 'teal.300')
+    const textColor = useColorModeValue('gray.700', 'gray.200')
 
     return <Box mt={3} mb={0} maxW={"90vw"}>
         <Text fontSize={'6xl'} color={textColor}>{amount} {currency}</Text>
