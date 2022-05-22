@@ -5,10 +5,10 @@ import {
     Box,
     Flex,
     Spacer,
-    HStack, Container
+    HStack, Container, IconButton, ButtonGroup, Select
 } from "@chakra-ui/react";
 import {Logo} from "../Logo";
-import {BiX, BiMenu, BiUser} from "react-icons/all";
+import {BiX, BiMenu, BiUser, BiNetworkChart, FaLinkedin} from "react-icons/all";
 import {useWeb3Context} from "../../utils/Web3Context";
 import {useCallback, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
@@ -68,7 +68,13 @@ export const TerminalHeader = () => {
                     <BiUser/><Box>{shortAddress(wallet)}</Box>
                 </HStack>
             </MenuItems>);
-        //menuItems.push(<MenuItems to="/History">History</MenuItems>);
+        /*menuItems.push(<MenuItems><HStack>
+            <Text>Network:</Text> <Select variant='unstyled'>
+                    <option value={1}>
+                        Ethereum
+                    </option>
+                </Select>
+            </HStack></MenuItems>);*/
         //menuItems.push(<MenuItems to="/Settings">Settings</MenuItems>);
         menuItems.push(<MenuItems to="#" onClick={handleDisconnect}>Disconnect</MenuItems>);
     }
@@ -81,12 +87,20 @@ export const TerminalHeader = () => {
                 align="center"
                 justify="space-between"
                 wrap="wrap"
-                w="100%">
+                w="100%"
+                pl={2}
+                pr={2}>
         <Logo text="Terminal" />
         <Spacer />
-        <Box display={{ base: "block", md: "none" }} onClick={toggleMenu}>
-            {show ? <BiX/> : <BiMenu/>}
-        </Box>
+        <ButtonGroup variant="ghost">
+            <IconButton
+                as="a"
+                aria-label={"Menu"}
+                target="_blank"
+                icon={show ? <BiX fontSize="1.25rem"/> : <BiMenu fontSize="1.25rem"/>}
+                onClick={toggleMenu}
+                />
+        </ButtonGroup>
         <Box
             display={{ base: show ? "block" : "none", md: "block" }}
             flexBasis={{ base: "100%", md: "auto" }}
