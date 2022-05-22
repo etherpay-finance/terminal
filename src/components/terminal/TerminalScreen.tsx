@@ -1,4 +1,4 @@
-import {Box, Skeleton, Text} from "@chakra-ui/react";
+import {Box, Skeleton, Text, useColorModeValue} from "@chakra-ui/react";
 
 export const TerminalScreen = (props: { amount: string; currency: string; secondCurrency?: string;
     secondAmount?: string, isLoading?: boolean}) => {
@@ -7,11 +7,13 @@ export const TerminalScreen = (props: { amount: string; currency: string; second
     const secondCurrency = props.secondCurrency;
     const secondAmount = props.secondAmount;
 
+    const textColor = useColorModeValue('teal.500', 'teal.300')
+
     return <Box mt={3} mb={0} maxW={"90vw"}>
-        <Text fontSize={'6xl'} color={'gray.500'}>{amount} {currency}</Text>
+        <Text fontSize={'6xl'} color={textColor}>{amount} {currency}</Text>
         {
             secondCurrency !== undefined && secondAmount !== undefined ?
-                <Text fontSize={'sm'} color={'gray.500'} fontWeight={'extrabold'}>
+                <Text fontSize={'sm'} color={textColor} fontWeight={'extrabold'}>
                     { props.isLoading ?
                         <Skeleton height='21px' />
                         :
