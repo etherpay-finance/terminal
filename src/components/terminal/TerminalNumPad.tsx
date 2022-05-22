@@ -1,5 +1,6 @@
 import {Box, Button, Grid, SimpleGrid, Text} from "@chakra-ui/react";
 import {useCallback, useEffect, useState} from "react";
+import useKeyPress from "../../utils/useKeyPress";
 
 export const TerminalNumPad = (props: { onAmountUpdated: (amount: string) => void; onConfirm: () => void; isLoading: boolean}) => {
     const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', ''];
@@ -13,9 +14,10 @@ export const TerminalNumPad = (props: { onAmountUpdated: (amount: string) => voi
         }
 
         let newAmount;
-        if (key === 'confirm') {
+        if (key === 'Enter') {
+            onConfirm()
             return;
-        } else if (key === 'clearEntry') {
+        } else if (key === 'Backspace') {
             if (amount.length === 1) {
                 newAmount = '0'
             } else {
@@ -23,7 +25,7 @@ export const TerminalNumPad = (props: { onAmountUpdated: (amount: string) => voi
             }
             setAmount(newAmount);
             return;
-        } else if (key === 'clearAll') {
+        } else if (key === 'ShiftBackspace') {
             newAmount = '0'
             setAmount(newAmount);
             return;
@@ -39,12 +41,18 @@ export const TerminalNumPad = (props: { onAmountUpdated: (amount: string) => voi
         } else {
             newAmount = amount + key;
         }
+
         setAmount(newAmount);
-    }, [amount]);
+    }, [amount, onConfirm]);
 
     useEffect(() => {
         onAmountUpdated(amount);
     }, [amount]);
+
+    useKeyPress(
+        ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', 'Backspace', 'Delete', 'Enter'],
+        (event: KeyboardEvent) => { onKeyPressed((event.shiftKey ? 'Shift' : '') + event.key) }
+    );
 
     return <Box>
         <Grid>
@@ -56,7 +64,7 @@ export const TerminalNumPad = (props: { onAmountUpdated: (amount: string) => voi
                         </Box>
                     </Button>
                 ))}
-                <Button colorScheme={'orange'} size={'xl'} onClick={() => onKeyPressed('clearEntry')}>
+                <Button colorScheme={'orange'} size={'xl'} onClick={() => onKeyPressed('Backspace')}>
                     <Box m={3}>
                         <Text fontWeight={'semibold'}>CE</Text>
                     </Box>

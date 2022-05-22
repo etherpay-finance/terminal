@@ -81,10 +81,12 @@ export const Terminal = () => {
     }, [amount, exchangeRate, exchangeRateUpdateTime]);
 
     const onAmountUpdated = useCallback((amount: string): void => {
+        console.log(amount)
         setAmount(amount);
     }, [amount])
 
     const onConfirm = useCallback((): void => {
+        console.log(amount)
         navigate("payment?amount=" + amount + "&secondAmount=" + secondAmount + "&chainId=" + chainId.toString()
             + "&to=" + recipientAddress);
     }, [amount, secondAmount, recipientAddress, chainId])

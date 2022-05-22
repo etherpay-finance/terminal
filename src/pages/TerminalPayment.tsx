@@ -11,6 +11,7 @@ import LogRocket from "logrocket";
 import {getUriFromSource} from "react-native-svg/lib/typescript/LocalSvg";
 import {BigNumber, ethers} from "ethers";
 import { BiCheckCircle } from "react-icons/bi";
+import useKeyPress from "../utils/useKeyPress";
 
 function useQuery() {
     const { search } = useLocation();
@@ -85,6 +86,17 @@ export const TerminalPayment = (props: {}) => {
     const cancel = useCallback(function () {
         navigate("/");
     }, [navigate]);
+
+    useKeyPress(
+        ['Backspace', 'Enter'],
+        (event: KeyboardEvent) => {
+            if (isConfirmed) {
+                event.key === 'Enter' && cancel()
+            } else {
+                event.key === 'Backspace' && cancel()
+            }
+        }
+    );
 
     return <TerminalLayout>
             {!isConfirmed ?
