@@ -5,7 +5,7 @@ import {
     Box,
     Flex,
     Spacer,
-    HStack, Container, IconButton, ButtonGroup, Select
+    HStack, Container, IconButton, ButtonGroup, Select, useColorMode, useColorModeValue, VStack
 } from "@chakra-ui/react";
 import {Logo} from "../Logo";
 import {BiX, BiMenu, BiUser, BiNetworkChart, FaLinkedin} from "react-icons/all";
@@ -41,6 +41,7 @@ export const TerminalHeader = () => {
 
     const [show, setShow] = useState(false)
     const toggleMenu = () => setShow(!show)
+    const menuBgColor = useColorModeValue('gray.100', 'gray.700')
 
     const handleDisconnect = useCallback(() => {
         web3Context.setWallet(undefined);
@@ -82,37 +83,42 @@ export const TerminalHeader = () => {
         <ColorModeSwitcher/>
     </HStack>);
 
-    return <Flex
-                as="nav"
-                align="center"
-                justify="space-between"
-                wrap="wrap"
-                w="100%"
-                pl={2}
-                pr={2}>
-        <Logo text="Terminal" />
-        <Spacer />
-        <ButtonGroup variant="ghost">
-            <IconButton
-                as="a"
-                aria-label={"Menu"}
-                target="_blank"
-                icon={show ? <BiX fontSize="1.25rem"/> : <BiMenu fontSize="1.25rem"/>}
-                onClick={toggleMenu}
-                />
-        </ButtonGroup>
+    return <VStack>
+        <Flex
+            as="nav"
+            align="center"
+            justify="space-between"
+            wrap="wrap"
+            w="100%"
+            pl={2}
+            pr={2}>
+            <Logo text="Terminal" />
+            <Spacer />
+            <ButtonGroup variant="ghost">
+                <IconButton
+                    as="a"
+                    aria-label={"Menu"}
+                    target="_blank"
+                    icon={show ? <BiX fontSize="1.25rem"/> : <BiMenu fontSize="1.25rem"/>}
+                    onClick={toggleMenu}
+                    />
+            </ButtonGroup>
+        </Flex>
         <Box
             display={{ base: show ? "block" : "none", md: "block" }}
             flexBasis={{ base: "100%", md: "auto" }}
+            bgColor={menuBgColor}
+            w={'100%'}
         >
             <Flex
                 align={["center", "center", "center", "center"]}
                 justify={["center", "space-between", "flex-end", "flex-end"]}
                 direction={["column", "row", "row", "row"]}
-                pt={[5, 5, 0, 0]}
+                pt={[5, 5, 5, 5]}
+                pb={[3, 3, 3, 3]}
             >
                 {menuItems}
             </Flex>
         </Box>
-    </Flex>
+    </VStack>
 }
