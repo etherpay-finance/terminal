@@ -1,9 +1,13 @@
 import {Box, Button, HStack, Skeleton, Text, useColorModeValue, VStack} from "@chakra-ui/react";
+import { useState } from "react";
 import {FaEthereum, RiArrowDropDownLine} from "react-icons/all";
-import NetworkSwitcher from "../buttons/NetworkSwitcher";
+import NetworkSelectorButton from "../buttons/NetworkSelectorButton";
+import NetworkSelector from "./NetworkSelector";
 
 export const TerminalScreen = (props: { amount: string; currency: string; secondCurrency?: string;
     secondAmount?: string, isLoading?: boolean, isNetworkSwitcherDisabled?: boolean}) => {
+    const [toggle, setToggle] = useState(false)
+
     const amount = props.amount;
     const currency = props.currency;
     const secondCurrency = props.secondCurrency;
@@ -24,11 +28,14 @@ export const TerminalScreen = (props: { amount: string; currency: string; second
                                 :
                                 <Text pl={5}>{secondAmount.substring(0, 12) + " " + secondCurrency + ''}</Text>
                             }
-                            <NetworkSwitcher isDisabled={props.isNetworkSwitcherDisabled}/>
+                            <NetworkSelectorButton isDisabled={props.isNetworkSwitcherDisabled} onToggle={() => {setToggle(!toggle)}}/>
                         </HStack>
                 </Box>
                 :
                 undefined
         }
+        <Box pt={2} display={toggle ? 'block' : 'none'}>
+            <NetworkSelector onSelect={() => {setToggle(!toggle)}}/>
+        </Box>
     </VStack>
 };

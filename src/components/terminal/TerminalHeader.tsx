@@ -13,7 +13,7 @@ import {useWeb3Context} from "../../utils/Web3Context";
 import {useCallback, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {shortAddress} from "../../utils/ethAddressUtils";
-import NetworkSwitcher from "../buttons/NetworkSwitcher";
+import NetworkSelectorButton from "../buttons/NetworkSelectorButton";
 
 const MenuItems = (props: { children: any, onClick?: React.MouseEventHandler<HTMLParagraphElement> | undefined, isLast?: boolean, to?: string | undefined; target?: string | undefined }) => {
     const { children, isLast, to = "/", target, ...rest } = props;
