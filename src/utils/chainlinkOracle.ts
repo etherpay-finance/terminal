@@ -7,23 +7,33 @@ type TokenPairToAddressMapping = {
     [key: string]: string;
 };
 
-type ChainIdToAggregatorMappings = {
+type ChainIdToAggregatorMappingsType = {
     [key: number]: TokenPairToAddressMapping;
 };
 
-const ChainIdToAggregatorMappings: ChainIdToAggregatorMappings = {
+const ChainIdToAggregatorMappings: ChainIdToAggregatorMappingsType = {
     1: {
         'ETH_USD': '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419',
+        'EUR_USD': '0xb49f677943BC038e9857d61E7d053CaA2C1734C1',
+        'JPY_USD': '0xBcE206caE7f0ec07b545EddE332A47C2F75bbeb3',
+        'CNY_USD': '0xeF8A4aF35cd47424672E3C590aBD37FBB7A7759a',
     },
     10: {
         'ETH_USD': '0x13e3Ee699D1909E989722E753853AE30b17e08c5',
+        'EUR_USD': '0x3626369857A10CcC6cc3A6e4f5C2f5984a519F20',
     },
     42161: {
         'ETH_USD': '0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612',
+        'EUR_USD': '0xA14d53bC1F1c0F31B4aA3BD109344E5009051a84',
+        'JPY_USD': '0x3dD6e51CB9caE717d5a8778CF79A04029f9cFDF8',
+        'CNY_USD': '0xcC3370Bde6AFE51e1205a5038947b9836371eCCb',
     },
     // test
     1337: {
         'ETH_USD': '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419',
+        'EUR_USD': '0xb49f677943BC038e9857d61E7d053CaA2C1734C1',
+        'JPY_USD': '0xBcE206caE7f0ec07b545EddE332A47C2F75bbeb3',
+        'CNY_USD': '0xeF8A4aF35cd47424672E3C590aBD37FBB7A7759a',
     },
 }
 
