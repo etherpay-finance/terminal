@@ -4,7 +4,7 @@ import {useLocalStorage} from "../utils/useLocalStorage";
 import {useWeb3Context} from "../utils/Web3Context";
 import {useCallback, useEffect} from "react";
 import {ethers} from "ethers";
-import { GiReceiveMoney } from "react-icons/gi";
+import { GiCrownCoin } from "react-icons/gi";
 import LogRocket from "logrocket";
 
 export const TerminalWalletSelect = () => {
@@ -74,15 +74,15 @@ export const TerminalWalletSelect = () => {
 
     return <TerminalSimpleLayout>
         <Container>
-            <Box my={5}>
+            <Box my={10}>
                 <Container align={"center"}>
-                    <GiReceiveMoney color={iconColor} fontSize={124}/>
+                    <GiCrownCoin color={iconColor} fontSize={124}/>
                 </Container>
             </Box>
             <Box m={[5, 5, 5, 5]}>
-                <Text color={textColor} fontSize={'lg'} fontWeight={'bold'}>
-                    „Accepting crypto payments has never been easier. Download <Link href='https://metamask.io/'color={"orange.400"} isExternal>Metamask</Link> on your mobile device, create your
-                     wallet, open the <Link href='#' color={terminalColor} isExternal>Ξ Terminal</Link> and start accepting payments at fractions of the cost.”
+                <Text color={textColor} textAlign={"justify"} fontSize={'md'} fontWeight={'bold'}>
+                    Crypto payments have never been easier. Download <Link href='https://metamask.io/'color={"orange.400"} isExternal>Metamask</Link> on your mobile device,
+                    create your wallet, open the <Link href='#' color={terminalColor} isExternal>Ξ Terminal</Link> and start accepting payments at fractions of the cost.
                 </Text>
             </Box>
             <Box mt={5}>
