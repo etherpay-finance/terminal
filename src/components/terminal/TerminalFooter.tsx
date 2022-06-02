@@ -1,5 +1,5 @@
-import {Box, ButtonGroup, Container, IconButton, Stack, Text, useColorModeValue} from "@chakra-ui/react";
-import {FaDonate, FaGithub, FaLinkedin, FaTwitter} from "react-icons/all";
+import {ButtonGroup, Container, IconButton, Stack, Text, useColorModeValue} from "@chakra-ui/react";
+import {FaDonate, FaTwitter, MdEmail} from "react-icons/all";
 import * as React from "react";
 
 export const TerminalFooter = () => {
@@ -21,19 +21,18 @@ export const TerminalFooter = () => {
                 </ButtonGroup>
                 <ButtonGroup variant="ghost">
                     <IconButton
-                        as="a"
-                        href="https://www.linkedin.com/in/marcin-gorzynski/?locale=en_US"
-                        aria-label="LinkedIn"
-                        target="_blank"
-                        icon={<FaLinkedin fontSize="1.25rem" />}
+                    as="a"
+                    href="https://twitter.com/Termina80565257"
+                    aria-label="Twitter"
+                    target="_blank"
+                    icon={<FaTwitter fontSize="1.25rem" />}
                     />
-                    <IconButton as="a" href="https://github.com/marino39" target="_blank" aria-label="GitHub" icon={<FaGithub fontSize="1.25rem" />} />
                     <IconButton
                         as="a"
-                        href="https://twitter.com/marino2008"
-                        aria-label="Twitter"
+                        href="mailto:terminal-etherpay@proton.me"
+                        aria-label="Email"
                         target="_blank"
-                        icon={<FaTwitter fontSize="1.25rem" />}
+                        icon={<MdEmail fontSize="1.25rem" />}
                     />
                 </ButtonGroup>
             </Stack>
