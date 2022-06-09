@@ -71,7 +71,7 @@ export const Terminal = () => {
             }
 
             if (newExchangeRate) {
-                setSecondAmount((parseFloat(amount) / parseFloat(newExchangeRate)).toString());
+                setSecondAmount((parseFloat(amount) / parseFloat(newExchangeRate)).toFixed(18).toString());
             }
             setIsLoading(false);
         }

@@ -4,11 +4,9 @@ import {TerminalLayout} from "./layouts/TerminalLayout";
 import * as React from "react";
 import QRCode from "react-qr-code";
 import {useLocation, useNavigate} from "react-router-dom";
-import { BeatLoader } from "react-spinners";
 import {useCallback, useEffect, useState} from "react";
 import {useWeb3Context} from "../utils/Web3Context";
 import LogRocket from "logrocket";
-import {getUriFromSource} from "react-native-svg/lib/typescript/LocalSvg";
 import {BigNumber, ethers} from "ethers";
 import { BiCheckCircle } from "react-icons/bi";
 import useKeyPress from "../utils/useKeyPress";
@@ -105,7 +103,7 @@ export const TerminalPayment = (props: {}) => {
                                     isNetworkSwitcherDisabled={true}/>
                     <Box>
                         <QRCode value={
-                            "ethereum:" + to + "@" + chainId.toString() + "?value=" + secondAmount + "e18"
+                            "ethereum:" + to + "@" + chainId.toString() + "?value=" + ethers.utils.parseUnits(secondAmount).toString() + ""
                         }
                                 fgColor={fgColor}
                                 bgColor={bgColor}
