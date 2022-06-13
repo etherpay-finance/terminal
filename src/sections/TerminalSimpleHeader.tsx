@@ -1,8 +1,7 @@
 import * as React from "react";
-import {Box, ButtonGroup, Flex, IconButton, Spacer} from "@chakra-ui/react";
-import {Logo} from "../Logo";
-import {ColorModeSwitcher} from "../buttons/ColorModeSwitcher";
-import {BiMenu, BiX} from "react-icons/all";
+import {Box, Flex, Spacer} from "@chakra-ui/react";
+import {Logo} from "../components/Logo";
+import {ColorModeSwitcher} from "../components/buttons/ColorModeSwitcher";
 
 export const TerminalSimpleHeader = () => {
     return <Flex pl={2} pr={2}>

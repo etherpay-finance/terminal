@@ -2,5 +2,4 @@
 
 # Exchange Rates
 
-- [ALPHA VANTAGE](https://www.alphavantage.co/)
-- [Uniswap](https://uniswap.org/)
+- [Chainlink](https://chain.link/)

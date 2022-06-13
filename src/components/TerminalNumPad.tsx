@@ -1,6 +1,6 @@
 import {Box, Button, Grid, SimpleGrid, Text} from "@chakra-ui/react";
 import {useCallback, useEffect, useState} from "react";
-import useKeyPress from "../../utils/useKeyPress";
+import useKeyPress from "../utils/useKeyPress";
 
 export const TerminalNumPad = (props: { onAmountUpdated: (amount: string) => void; onConfirm: () => void; isLoading: boolean}) => {
     const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', ''];

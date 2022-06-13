@@ -1,4 +1,4 @@
-import {ColorModeSwitcher} from "../buttons/ColorModeSwitcher";
+import {ColorModeSwitcher} from "../components/buttons/ColorModeSwitcher";
 import * as React from "react";
 import {
     Text,
@@ -7,13 +7,12 @@ import {
     Spacer,
     HStack, Container, IconButton, ButtonGroup, Select, useColorMode, useColorModeValue, VStack
 } from "@chakra-ui/react";
-import {Logo} from "../Logo";
+import {Logo} from "../components/Logo";
 import {BiX, BiMenu, BiUser, BiNetworkChart, FaLinkedin} from "react-icons/all";
-import {useWeb3Context} from "../../utils/Web3Context";
+import {useWeb3Context} from "../utils/Web3Context";
 import {useCallback, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {shortAddress} from "../../utils/ethAddressUtils";
-import NetworkSelectorButton from "../buttons/NetworkSelectorButton";
+import {shortAddress} from "../utils/ethAddressUtils";
 
 const MenuItems = (props: { children: any, onClick?: React.MouseEventHandler<HTMLParagraphElement> | undefined, isLast?: boolean, to?: string | undefined; target?: string | undefined }) => {
     const { children, isLast, to = "/", target, ...rest } = props;

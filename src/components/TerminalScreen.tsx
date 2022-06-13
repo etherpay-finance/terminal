@@ -1,8 +1,7 @@
 import {Box, Button, HStack, Skeleton, Text, useColorModeValue, VStack} from "@chakra-ui/react";
 import { useState } from "react";
-import {FaEthereum, RiArrowDropDownLine} from "react-icons/all";
-import NetworkSelectorButton from "../buttons/NetworkSelectorButton";
-import NetworkSelector from "./NetworkSelector";
+import NetworkSelectorButton from "./buttons/NetworkSelectorButton";
+import NetworkSelector from "./buttons/NetworkSelector";
 
 export const TerminalScreen = (props: { amount: string; currency: string; secondCurrency?: string;
     secondAmount?: string, isLoading?: boolean, isNetworkSwitcherDisabled?: boolean}) => {

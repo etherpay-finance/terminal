@@ -28,17 +28,8 @@ The lack of simple and cheap tools hinders Ethereum adoption as a payment settle
 
 ## Scope
 
-### EtherPay - Request
-
-1. As a user I want to make a request of payment that I can send to people.
-2. As a user I want to select the network on which payment is to be made.
-3. As a user I want to provide payment amount in my local currency.
-4. As a user I want to select payment token of my choice.
-5. As a user I want to connect my crypto wallet and make a payment.
-6. As a user I want to scan QR code in my wallet and make a payment.
-
 ### EtherPay - Terminal
 
-7. As a user I want to get confirmation when payment has been made.
-8. As a user I want to see the list of the payments made by the device and their status.
-9. As a user I want to have all payments exported to the CSV file.
+1. As a user I want to get confirmation when payment has been made.
+2. As a user I want to see the list of the payments made by the device and their status.
+3. As a user I want to have all payments exported to the CSV file.

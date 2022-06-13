@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useState} from "react";
 import {VStack} from "@chakra-ui/react";
-import {TerminalScreen} from "../components/terminal/TerminalScreen";
-import {TerminalNumPad} from "../components/terminal/TerminalNumPad";
+import {TerminalScreen} from "../components/TerminalScreen";
+import {TerminalNumPad} from "../components/TerminalNumPad";
 import * as React from "react";
 import { TerminalLayout } from "./layouts/TerminalLayout";
 import {useNavigate} from "react-router-dom";

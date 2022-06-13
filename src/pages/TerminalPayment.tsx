@@ -1,5 +1,5 @@
-import {Box, Button, Container, HStack, useColorModeValue, VStack} from "@chakra-ui/react";
-import {TerminalScreen} from "../components/terminal/TerminalScreen";
+import {Box, Button, useColorModeValue, VStack} from "@chakra-ui/react";
+import {TerminalScreen} from "../components/TerminalScreen";
 import {TerminalLayout} from "./layouts/TerminalLayout";
 import * as React from "react";
 import QRCode from "react-qr-code";
